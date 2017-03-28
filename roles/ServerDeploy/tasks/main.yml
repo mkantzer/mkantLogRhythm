@@ -4,8 +4,8 @@
 
 - name: Provision Gluster Cluster
   ec2:
-    key_name: "{{ key_name }}"
-    group_id: "{{ group_id }}"
+    key_name: "{{ AWSkey_name }}"
+    group_id: "{{ AWSgroup_id }}"
     instance_type: t2.micro
     image: ami-49c9295f
     volumes: 
@@ -13,9 +13,9 @@
         delete_on_termination: true
         volume_type: gp2
         volume_size: 2
-    region: "{{ region }}"
-    zone: "{{ zone }}"
-    vpc_subnet_id: "{{ vpc_subnet_id }}"
+    region: "{{ AWSregion }}"
+    zone: "{{ AWSzone }}"
+    vpc_subnet_id: "{{ AWSvpc_subnet_id }}"
     wait: true
     exact_count: 2
     count_tag:
@@ -27,13 +27,13 @@
 
 - name: Provision Gluster Client
   ec2:
-    key_name: "{{ key_name }}"
-    group_id: "{{ group_id }}"
+    key_name: "{{ AWSkey_name }}"
+    group_id: "{{ AWSgroup_id }}"
     instance_type: t2.micro
     image: ami-49c9295f
-    region: "{{ region }}"
-    zone: "{{ zone }}"
-    vpc_subnet_id: "{{ vpc_subnet_id }}"
+    region: "{{ AWSregion }}"
+    zone: "{{ AWSzone }}"
+    vpc_subnet_id: "{{ AWSvpc_subnet_id }}"
     wait: true
     exact_count: 2
     count_tag:
