@@ -14,7 +14,7 @@
         volume_type: gp2
         volume_size: 2
     region: "{{ AWSregion }}"
-    zone: "{{ AWSzone }}"
+    zone: us-east-1b
     vpc_subnet_id: "{{ AWSvpc_subnet_id }}"
     wait: true
     exact_count: 2
