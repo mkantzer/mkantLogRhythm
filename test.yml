@@ -3,7 +3,6 @@
 #shouldnt need to define access keys because manually entered to host for now. fix later
 
 - hosts: localhost
-  connection: local
   become: yes
   become_method: sudo
   connection: ssh
