@@ -12,7 +12,7 @@
 
     - name: Provision 2 test insances
       ec2:
-        key-name: FIRSTKEYPAIR,LogRhythm
+        key_name: FIRSTKEYPAIR,LogRhythm
         group_id: sg-52278e2d
         instance_type: t2.micro
         image: ami-49c9295f
