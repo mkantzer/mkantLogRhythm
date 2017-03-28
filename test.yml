@@ -6,7 +6,7 @@
   connection: local
   become: yes
   become_method: sudo
-  gather_facts: False
+  gather_facts: true
 
   tasks:
 
