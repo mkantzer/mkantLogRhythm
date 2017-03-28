@@ -1,0 +1,8 @@
+--- # environmental variables
+vars:
+  key_name: FIRSTKEYPAIR,LogRhythm
+  group_id: sg-52278e2d
+  instance_type: t2.micro
+  region: us-east-1
+  zone: us-east-1b
+  vpc_subnet_id: subnet-f9423e9c

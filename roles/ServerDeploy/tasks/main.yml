@@ -1,0 +1,43 @@
+--- # main task list for ServerDeploy
+
+
+
+- name: Provision Gluster Cluster
+  ec2:
+    key_name: "{{ key_name }}"
+    group_id: "{{ group_id }}"
+    instance_type: t2.micro
+    image: ami-49c9295f
+    volumes: 
+      - device_name: /dev/sdb
+        delete_on_termination: true
+        volume_type: gp2
+        volume_size: 2
+    region: "{{ region }}"
+    zone: "{{ zone }}"
+    vpc_subnet_id: "{{ vpc_subnet_id }}"
+    wait: true
+    exact_count: 2
+    count_tag:
+      Gluster: Cluster
+    instance_tags:
+      Gluster: Cluster
+      Name: GlusterCluster
+
+
+- name: Provision Gluster Client
+  ec2:
+    key_name: "{{ key_name }}"
+    group_id: "{{ group_id }}"
+    instance_type: t2.micro
+    image: ami-49c9295f
+    region: "{{ region }}"
+    zone: "{{ zone }}"
+    vpc_subnet_id: "{{ vpc_subnet_id }}"
+    wait: true
+    exact_count: 2
+    count_tag:
+      Gluster: Client
+    instance_tags:
+      Gluster: Client
+      Name: GlusterClient
