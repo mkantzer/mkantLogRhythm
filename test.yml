@@ -1,0 +1,8 @@
+--- # this is a test playbook. Current test: deploy an AWS EC2 instance
+
+# because of 'the cloud', executing against local 
+- hosts: localhost
+  connection: local
+  gather_facts: False
+  tasks:
+    - 
