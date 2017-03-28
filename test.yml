@@ -25,4 +25,5 @@
           Ansible: tenant
         instance_tags:
           Ansible: tenant
+          Name: tenant
 
