@@ -1,8 +1,8 @@
 --- # environmental variables
 vars:
   AWSkey_name: FIRSTKEYPAIR,LogRhythm
-  AWSgroup_id: sg-52278e2d
+  AWSgroup_id: 'sg-52278e2d'
   AWSinstance_type: t2.micro
-  AWSregion: us-east-1
-  AWSzone: us-east-1b
-  AWSvpc_subnet_id: subnet-f9423e9c
+  AWSregion: 'us-east-1'
+  AWSzone: 'us-east-1b'
+  AWSvpc_subnet_id: 'subnet-f9423e9c'
