@@ -1,0 +1,26 @@
+--- # this is to test running as hosts that do not exist (i.e. tag_Gluster_Cluster)
+
+- hosts: tag_Gluster_Client
+  user: ubuntu
+  connection: ssh
+  become: yes
+  become_method: sudo
+  gather_facts: true
+
+  tasks:
+    - name: Provision 2 Client instances
+      ec2:
+        key_name: FIRSTKEYPAIR,LogRhythm
+        group_id: sg-52278e2d
+        instance_type: t2.micro
+        image: ami-49c9295f
+        region: us-east-1
+        zone: us-east-1b
+        vpc_subnet_id: subnet-f9423e9c
+        wait: true
+        exact_count: 2
+        count_tag:
+          Gluster: Client
+        instance_tags:
+          Gluster: Client
+          Name: GlusterClient
