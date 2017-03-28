@@ -22,6 +22,5 @@
   gather_facts: true
 
   roles:
-    - ServerDeploy
-
+    - InstanceDeploy
 
