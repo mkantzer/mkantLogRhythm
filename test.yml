@@ -4,10 +4,10 @@
 
 - hosts: localhost
   connection: local
+  become: yes
+  become_method: sudo
+  connection: ssh
   gather_facts: False
-  vars:
-    var1: value
-    var2: value
 
   tasks:
 
