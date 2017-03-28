@@ -1,8 +1,27 @@
 --- # this is a test playbook. Current test: deploy an AWS EC2 instance
-
 # because of 'the cloud', executing against local 
+#shouldnt need to define access keys because manually entered to host for now. fix later
+
 - hosts: localhost
   connection: local
   gather_facts: False
+  vars:
+    var1: value
+    var2: value
+
   tasks:
-    - 
+
+    - name: Provision 2 test insances
+      ec2:
+        key-name: FIRSTKEYPAIR,LogRhythm
+        group_id: sg-52278e2d
+        instance_type: t2.micro
+        image: ami-49c9295f
+        vpc_subnet_id: subnet-f9423e9c
+        wait: true
+        exact_count: 2
+        count_tag:
+          Ansible: tenant
+        instance_tags:
+          Ansible: tenant
+
