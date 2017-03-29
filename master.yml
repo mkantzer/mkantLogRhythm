@@ -21,10 +21,10 @@
   become_method: sudo
   gather_facts: true 
   roles:
-    - InstanceDeploy
+  - InstanceDeploy
 
 
 #Configure instances for Cluster
 - hosts: tag_Gluster_Cluster
   roles:
-    - GlusterCluster
+  - GlusterCluster
