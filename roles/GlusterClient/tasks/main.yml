@@ -1,7 +1,6 @@
 --- # main task list for configuring Gluster Clients
 
-- name: Enable fuse in kernel
-  - modprobe:
+- modprobe:
     name: fuse
     state: present
 
