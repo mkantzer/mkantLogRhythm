@@ -24,12 +24,12 @@
 
 - name: Mount second volume, even after boot
   mount:
-    path: /mnt/xvdb1
+    path: /export/xvdb1
     src: /dev/xvdb1
     fstype: xfs
     state: mounted
 
 - file:
-    path: /mnt/xvdb1/brick
+    path: /export/xvdb1/brick
     state: directory
       
