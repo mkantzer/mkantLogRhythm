@@ -27,6 +27,9 @@
 - debug:
     var: glusterServer
 
+-debug:
+    var: glusterServer[1]
+
 #- name: Mount Gluster Volume
 #  mount:
 #    name: /mnt/gluster
