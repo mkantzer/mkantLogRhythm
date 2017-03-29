@@ -47,7 +47,7 @@
   gluster_volume:
     state: present
     start_on_create: yes
-    name: test1
+    name: gv0  
     bricks: /export/xvdb1/brick1
     cluster: 
       - " {{ ansible_play_batch[0] }}"
@@ -60,7 +60,7 @@
 - name: verify Gluster volume started
   gluster_volume:
     state: started
-    name: test1
+    name: gv0
     bricks: /export/xvdb1/brick1
     cluster: 
       - " {{ ansible_play_batch[0] }}"
