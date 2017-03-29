@@ -1,0 +1,11 @@
+--- #test file for GlusterClient config;
+#run this when servers already deployed, and volumes already running
+
+
+#Configure Gluster Clients
+- hosts: tag_Gluster_Client
+  become: yes
+  become_method: sudo
+  gather_facts: true 
+  roles:
+  - GlusterClient
