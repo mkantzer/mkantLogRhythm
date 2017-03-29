@@ -13,6 +13,8 @@
       - banana
       - cake
     glusterServer:
-      - "{{ groups['tag_Gluster_Cluster'] }}"
+      - { for host in groups['tag_Gluster_Cluster'] }
+            {{hostvars[host]["ec2_private_ip_address"] }}
+        { endfor }
   roles:
   - GlusterClient
