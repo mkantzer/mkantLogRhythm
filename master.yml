@@ -34,11 +34,11 @@
 
 
 #testing out a new thing
-- hosts: tag_Gluster_Cluster[0]
-  become: yes
-  become_method: sudo
-  gather_facts: true
-  tasks:
-    - file:
-        path: /export/xvdb1/brick/nope
-        state: directory
+#- hosts: tag_Gluster_Cluster[0]
+#  become: yes
+#  become_method: sudo
+#  gather_facts: true
+#  tasks:
+#    - file:
+#        path: /export/xvdb1/brick/nope
+#        state: directory

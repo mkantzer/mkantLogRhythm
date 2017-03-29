@@ -34,7 +34,7 @@
     state: directory
 
 
-this is to test the conditional
+#this is to test the conditional
 - file:
     path: /export/xvdb1/brick/nope
     state: directory
