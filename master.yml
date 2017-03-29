@@ -30,7 +30,7 @@
     - pause:
         seconds: 30
         prompt: allowing time to poll AWS
-    -meta: refresh_inventory
+    - meta: refresh_inventory
 
 #Configure instances for Cluster
 - hosts: tag_Gluster_Cluster
