@@ -38,11 +38,10 @@
 
 - pause:
     prompt: "Please SSH to {{ansible_play_batch[0]}} and execute:
-                sudo gluster peer probe {{ansible_play_batch[1]}}
-                sudo gluster volume create gv0 replica 2 {{ansible_play_batch[0]}}:/export/xvdb1/brick1 {{ansible_play_batch[1]}}:/export/xvdb1/brick1
-                sudo gluster volume start gv0
-
-                Press Enter when ready to continue"
+            sudo gluster peer probe {{ansible_play_batch[1]}}
+            sudo gluster volume create gv0 replica 2 {{ansible_play_batch[0]}}:/export/xvdb1/brick1 {{ansible_play_batch[1]}}:/export/xvdb1/brick1
+            sudo gluster volume start gv0
+            Press Enter when ready to continue"
 
 #- name: Create Gluster Cluster
 #  gluster_volume:
