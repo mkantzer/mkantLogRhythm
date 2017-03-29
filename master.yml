@@ -23,7 +23,6 @@
   roles:
   - InstanceDeploy
 
-
 - wait_for:
   host: tag_Gluster_Cluster[0]
 
