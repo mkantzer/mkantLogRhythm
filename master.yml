@@ -23,8 +23,10 @@
   roles:
   - InstanceDeploy
 
-- wait_for:
-  host: tag_Gluster_Cluster[0]
+-hosts: localhost
+  connection: local
+  - wait_for:
+    host: tag_Gluster_Cluster[0]
 
 
 #Configure instances for Cluster
