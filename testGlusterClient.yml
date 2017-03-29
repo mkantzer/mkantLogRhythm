@@ -6,6 +6,11 @@
 - hosts: tag_Gluster_Client
   become: yes
   become_method: sudo
-  gather_facts: true 
+  gather_facts: true
+  vars:
+    fruits:
+      - apple
+      - banana
+      - cake 
   roles:
   - GlusterClient
