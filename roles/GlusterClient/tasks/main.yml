@@ -34,12 +34,16 @@
     var: "{{glusterServer}}"
 
 - debug:
-    var: "{{ glusterServer[0] }}"    
+    var: "{{ glusterServer[0] }}" 
+
+- debug:
+    msg: "{{ glusterServer[0] }}"
+
 
 - name: Mount Gluster Volume
   mount:
     name: /mnt/gluster
-    src: "glusterServer[0]:/gv0"
+    src: "{{glusterServer[0]}}:/gv0"
     fstype: glusterfs
     state: mounted
-    opts: backupvolfile-server="glusterServer[1]"
+    opts: backupvolfile-server="{{ glusterServer[1] }}"
