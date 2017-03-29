@@ -30,14 +30,14 @@
     state: mounted
 
 - file:
-    path: /export/xvdb1/brick
+    path: /export/xvdb1/brick1
     state: directory
 
 - name: Create Gluster Cluster
   gluster_volume:
     state: started
     start_on_create: yes
-    name: test1
+    name: brick1
     bricks: /export/xvdb1/brick
     cluster: tag_Gluster_Cluster
     replicas: 2
