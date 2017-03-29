@@ -4,14 +4,36 @@
   become: yes
   become_method: sudo
   gather_facts: true 
+
   tasks:
+    - debug:
+        msg: " {{ ec2_tag_Name }} "
+
+#    - debug:
+#        msg: " {{ hostvars.tag_Gluster_Cluster }} "
+
+    - debug:
+        msg: " {{  groups['tag_Gluster_Cluster'] }} "
+
+#    - debug:
+#        msg: " {% for host in groups['tag_Gluster_Cluster'] %}
+#                 
+#                  - {{ hostvars[host]['ansible_eth0']['ipv4']['address'] }}
+#              {% endfor %}   "
+
+    - debug:
+       msg: " {{ ansible_play_batch[0] }} " 
+
+
     - name: Create Gluster Cluster
       gluster_volume:
         state: present
         start_on_create: yes
         name: test1
         bricks: /export/xvdb1/brick1
-        cluster: tag_Gluster_Cluster
+        cluster:
+          - " {{ ansible_play_batch[0] }}"
+          - " {{ ansible_play_batch[1] }}"
         replicas: 2
       run_once: yes
     
