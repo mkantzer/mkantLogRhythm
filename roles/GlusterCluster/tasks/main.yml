@@ -17,10 +17,9 @@
     state: latest
 
 
-- name: Configure second volume file system
-  - filesystem: 
-      fstype: xfs
-      dev: /dev/xvdb1
+- filesystem: 
+    fstype: xfs
+    dev: /dev/xvdb1
 
 
 - name: Mount second volume, even after boot
