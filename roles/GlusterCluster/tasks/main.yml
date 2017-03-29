@@ -23,14 +23,13 @@
 
 
 - name: Mount second volume, even after boot
-    mount:
-      path: /export/xvdb1
-      src: /dev/xvdb1
-      fstype: xfs
-      state: mounted
+  mount:
+    path: /export/xvdb1
+    src: /dev/xvdb1
+    fstype: xfs
+    state: mounted
 
-- name: create Brick directory
-  - file:
-      path: /export/xvdb1/brick
-      state: directory
+- file:
+    path: /export/xvdb1/brick
+    state: directory
       
