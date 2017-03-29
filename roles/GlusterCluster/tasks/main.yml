@@ -33,7 +33,7 @@
     path: /export/xvdb1/brick1
     state: directory
 
--debug:
+- debug:
     var: ansible_play_batch[0]
 
 - pause:
