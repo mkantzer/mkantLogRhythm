@@ -33,9 +33,12 @@
     path: /export/xvdb1/brick
     state: directory
 
-
-#this is to test the conditional
-- file:
-    path: /export/xvdb1/brick/nope
-    state: directory
-    when: tag_Gluster_Cluster[0]  == inventory_hostname
+- name: Create Gluster Cluster
+    gluster_volume:
+        state: started
+        start_on_create: yes
+        name: test1
+        bricks: /export/xvdb1/brick
+        cluster: tag_Gluster_Cluster
+        replicas: 2
+        run_once: true
