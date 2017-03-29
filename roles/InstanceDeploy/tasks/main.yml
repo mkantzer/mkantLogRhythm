@@ -55,40 +55,40 @@
 
 
 
-#- name: Provision Gluster Client in first subnet
-#  ec2:
-#    key_name: "{{ AWSkey_name }}"
-#    group_id: "{{ AWSgroup_id }}"
-#    instance_type: t2.micro
-#    assign_public_ip: yes
-#    image: "{{ AWSimage_id }}"
-#    region: "{{ AWSregion }}"
-#    vpc_subnet_id: "{{ AWSvpc_subnet_id[0] }}"
-#    wait: true
-#    exact_count: 1
-#    count_tag:
-#      Gluster: Client
-#      Subnet: "{{ AWSvpc_subnet_id[0] }}"
-#    instance_tags:
-#      Gluster: Client
-#      Name: GlusterClient
-#      Subnet: "{{ AWSvpc_subnet_id[0] }}"
+- name: Provision Gluster Client in first subnet
+  ec2:
+    key_name: "{{ AWSkey_name }}"
+    group_id: "{{ AWSgroup_id }}"
+    instance_type: t2.micro
+   assign_public_ip: yes
+    image: "{{ AWSimage_id }}"
+   region: "{{ AWSregion }}"
+    vpc_subnet_id: "{{ AWSvpc_subnet_id[0] }}"
+    wait: true
+    exact_count: 1
+    count_tag:
+      Gluster: Client
+      Subnet: "{{ AWSvpc_subnet_id[0] }}"
+    instance_tags:
+      Gluster: Client
+      Name: GlusterClient
+      Subnet: "{{ AWSvpc_subnet_id[0] }}"
 
-#- name: Provision Gluster Client in second subnet
-#  ec2:
-#    key_name: "{{ AWSkey_name }}"
-#    group_id: "{{ AWSgroup_id }}"
-#    instance_type: t2.micro
-#    assign_public_ip: yes
-#    image: "{{ AWSimage_id }}"
-#    region: "{{ AWSregion }}"
-#    vpc_subnet_id: "{{ AWSvpc_subnet_id[1] }}"
-#    wait: true
-#    exact_count: 1
-#    count_tag:
-#      Gluster: Client
-#      Subnet: "{{ AWSvpc_subnet_id[1] }}"
-#    instance_tags:
-#      Gluster: Client
-#      Subnet: "{{ AWSvpc_subnet_id[1] }}"
-#      Name: GlusterClient
+- name: Provision Gluster Client in second subnet
+  ec2:
+    key_name: "{{ AWSkey_name }}"
+    group_id: "{{ AWSgroup_id }}"
+    instance_type: t2.micro
+    assign_public_ip: yes
+    image: "{{ AWSimage_id }}"
+    region: "{{ AWSregion }}"
+    vpc_subnet_id: "{{ AWSvpc_subnet_id[1] }}"
+    wait: true
+    exact_count: 1
+    count_tag:
+      Gluster: Client
+      Subnet: "{{ AWSvpc_subnet_id[1] }}"
+    instance_tags:
+      Gluster: Client
+      Subnet: "{{ AWSvpc_subnet_id[1] }}"
+      Name: GlusterClient
