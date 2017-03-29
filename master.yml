@@ -24,6 +24,10 @@
   - InstanceDeploy
 
 
+- wait_for:
+  host: tag_Gluster_Cluster[0]
+
+
 #Configure instances for Cluster
 - hosts: tag_Gluster_Cluster
   become: yes
