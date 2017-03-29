@@ -27,7 +27,7 @@
   connection: local
   tasks:
     - pause:
-        seconds: 30
+        seconds: 60
         prompt: allowing time to poll AWS
 
 
