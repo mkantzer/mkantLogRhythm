@@ -13,6 +13,7 @@
         delete_on_termination: true
         volume_type: gp2
         volume_size: 2
+        snapshot: snap-04adac52ef92895ad
     region: "{{ AWSregion }}"
     zone: us-east-1b
     vpc_subnet_id: "{{ AWSvpc_subnet_id }}"
