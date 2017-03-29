@@ -40,7 +40,9 @@
     start_on_create: yes
     name: test1
     bricks: /export/xvdb1/brick1
-    cluster: tag_Gluster_Cluster
+    cluster: 
+      - " {{ ansible_play_batch[0] }}"
+      - " {{ ansible_play_batch[1] }}"
     replicas: 2
   run_once: yes
 
@@ -50,6 +52,7 @@
     name: test1
     bricks: /export/xvdb1/brick1
     cluster: 
-      - tag_Gluster_Cluster
+      - " {{ ansible_play_batch[0] }}"
+      - " {{ ansible_play_batch[1] }}"
     replicas: 2
   run_once: yes
