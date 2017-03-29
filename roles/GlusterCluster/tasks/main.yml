@@ -38,4 +38,4 @@
 - file:
     path: /export/xvdb1/brick/nope
     state: directory
-    when: "{{ inventory_hostname }}" = "{{ tag_Gluster_Cluster[0] }}"
+    when: "{{ inventory_hostname }}" == "{{ tag_Gluster_Cluster[0] }}"
