@@ -37,8 +37,8 @@
   gluster_volume:
     state: started
     start_on_create: yes
-    name: brick1
-    bricks: /export/xvdb1/brick
+    name: test1
+    bricks: /export/xvdb1/brick1
     cluster: tag_Gluster_Cluster
     replicas: 2
   run_once: yes
