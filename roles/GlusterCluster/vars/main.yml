@@ -1,0 +1,5 @@
+--- #defining variables for client rollout
+
+glusterServer:
+  - "{{ tag_Gluster_Cluster[0] }}"
+  - "{{ tag_Gluster_Cluster[1] }}"

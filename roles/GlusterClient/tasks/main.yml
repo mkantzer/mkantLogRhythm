@@ -1,0 +1,31 @@
+--- # main task list for configuring Gluster Clients
+
+- name: Enable fuse in kernel
+  - modprobe:
+      name: fuse
+      state: present
+
+- apt_repository:
+    repo: 'ppa:gluster/glusterfs-3.8'
+    state: present
+    update_cache: yes
+
+- name: Install glusterfs-client
+  apt:
+    name: glusterfs-client
+    state: latest
+
+- file:
+    path: /mnt/gluster
+    state: directory
+
+-debug:
+  var: glusterServer
+
+- name: Mount Gluster Volume
+  mount:
+    name: /mnt/gluster
+    src: "{{    [0] }}":/gv0
+    fstype: glusterfs
+    state: mounted
+    opts: backupvolfile-server="{{  [1]}}"
