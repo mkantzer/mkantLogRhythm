@@ -26,8 +26,9 @@
 - hosts: localhost
   connection: local
   tasks:
-    - wait_for:
-        host: tag_Gluster_Cluster[0]
+    - pause:
+        seconds: 30
+        prompt: allowing time to poll AWS
 
 
 #Configure instances for Cluster
