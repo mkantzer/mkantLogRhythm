@@ -2,8 +2,8 @@
 
 - name: Enable fuse in kernel
   - modprobe:
-      name: fuse
-      state: present
+    name: fuse
+    state: present
 
 - apt_repository:
     repo: 'ppa:gluster/glusterfs-3.8'
