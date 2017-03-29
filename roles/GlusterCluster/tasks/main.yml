@@ -34,11 +34,11 @@
     state: directory
 
 - name: Create Gluster Cluster
-    gluster_volume:
-        state: started
-        start_on_create: yes
-        name: test1
-        bricks: /export/xvdb1/brick
-        cluster: tag_Gluster_Cluster
-        replicas: 2
-        run_once: true
+  gluster_volume:
+    state: started
+    start_on_create: yes
+    name: test1
+    bricks: /export/xvdb1/brick
+    cluster: tag_Gluster_Cluster
+    replicas: 2
+    run_once: true
