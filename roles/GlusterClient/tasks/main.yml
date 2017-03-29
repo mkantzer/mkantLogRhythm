@@ -18,28 +18,6 @@
     path: /mnt/gluster
     state: directory
 
-- debug:
-    var: fruits
-
-- debug:
-    var: fruits [1]
-
-- debug:
-    var: glusterServer
-
-- debug:
-    var: glusterServer[0]
-
-- debug:
-    var: "{{glusterServer}}"
-
-- debug:
-    var: "{{ glusterServer[0] }}" 
-
-- debug:
-    msg: "{{ glusterServer[0] }}"
-
-
 - name: Mount Gluster Volume
   mount:
     name: /mnt/gluster
