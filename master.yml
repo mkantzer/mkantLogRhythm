@@ -14,7 +14,7 @@
 #    here is where to put all the tasks to save these variables
 #    - name: 
 
-# Begin Server deployment/verification
+#Instance deployment/verification
 - hosts: localhost
   connection: local
   become: yes
@@ -24,3 +24,9 @@
   roles:
     - InstanceDeploy
 
+
+#Configure instances for Cluster
+- hosts: tag_Gluster_Cluster
+
+  roles:
+    - GlusterCluster

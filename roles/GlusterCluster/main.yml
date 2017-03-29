@@ -1,0 +1,21 @@
+--- # main task list for GlusterCluster
+
+- name: Add Gluster Repository
+  - apt_repository:
+      repo: 'ppa:gluster/glusterfs-3.8'
+      state: present
+      update_cache: yes
+
+
+- name: Install glusterfs-server
+  apt:
+    name: glusterfs-server
+    state: latest
+
+- name: Install xfsprogs
+  apt:
+    name : xfsprogs
+    state: latest
+
+- name: Partition extra disks
+
