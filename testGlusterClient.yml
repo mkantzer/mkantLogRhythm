@@ -11,6 +11,8 @@
     fruits:
       - apple
       - banana
-      - cake 
+      - cake
+    glusterServer:
+      - "{{ tag_Gluster_Cluster }}"
   roles:
   - GlusterClient

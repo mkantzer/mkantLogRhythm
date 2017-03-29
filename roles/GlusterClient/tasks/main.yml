@@ -22,6 +22,9 @@
     var: fruits
 
 - debug:
+    var: fruits [1]
+
+- debug:
     var: glusterServer
 
 #- name: Mount Gluster Volume
