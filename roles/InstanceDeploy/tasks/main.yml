@@ -16,7 +16,6 @@
         volume_size: 2
         snapshot: snap-04adac52ef92895ad
     region: "{{ AWSregion }}"
-#    zone: "{{ AWSzone }} "
     vpc_subnet_id: "{{ AWSvpc_subnet_id[0] }}"
     wait: true
     exact_count: 1
@@ -42,7 +41,6 @@
         volume_size: 2
         snapshot: snap-04adac52ef92895ad
     region: "{{ AWSregion }}"
-#    zone: "{{ AWSzone }} "
     vpc_subnet_id: "{{ AWSvpc_subnet_id[1] }}"
     wait: true
     exact_count: 1
@@ -65,7 +63,6 @@
     assign_public_ip: yes
     image: "{{ AWSimage_id }}"
     region: "{{ AWSregion }}"
-#    zone: "{{ AWSzone }}"
     vpc_subnet_id: "{{ AWSvpc_subnet_id[0] }}"
     wait: true
     exact_count: 1
@@ -85,7 +82,6 @@
     assign_public_ip: yes
     image: "{{ AWSimage_id }}"
     region: "{{ AWSregion }}"
-#    zone: "{{ AWSzone }}"
     vpc_subnet_id: "{{ AWSvpc_subnet_id[1] }}"
     wait: true
     exact_count: 1
