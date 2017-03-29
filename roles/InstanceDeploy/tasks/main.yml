@@ -60,9 +60,9 @@
     key_name: "{{ AWSkey_name }}"
     group_id: "{{ AWSgroup_id }}"
     instance_type: t2.micro
-   assign_public_ip: yes
+    assign_public_ip: yes
     image: "{{ AWSimage_id }}"
-   region: "{{ AWSregion }}"
+    region: "{{ AWSregion }}"
     vpc_subnet_id: "{{ AWSvpc_subnet_id[0] }}"
     wait: true
     exact_count: 1
