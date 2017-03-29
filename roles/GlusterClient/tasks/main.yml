@@ -19,6 +19,9 @@
     state: directory
 
 - debug:
+    var: fruits
+
+- debug:
     var: glusterServer
 
 #- name: Mount Gluster Volume
