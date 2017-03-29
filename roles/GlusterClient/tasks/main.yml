@@ -19,7 +19,7 @@
     state: directory
 
 - debug:
-  var: glusterServer
+    var: glusterServer
 
 #- name: Mount Gluster Volume
 #  mount:
