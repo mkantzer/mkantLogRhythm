@@ -2,12 +2,12 @@
 
 
 
-- name: Provision Gluster Cluster
+- name: Provision Gluster Cluster in first subnet
   ec2:
     key_name: "{{ AWSkey_name }}"
     group_id: "{{ AWSgroup_id }}"
     instance_type: t2.micro
-    image: ami-49c9295f
+    image: "{{ AWSimage_id }}"
     volumes: 
       - device_name: /dev/sdb
         delete_on_termination: true
@@ -15,10 +15,33 @@
         volume_size: 2
         snapshot: snap-04adac52ef92895ad
     region: "{{ AWSregion }}"
-    zone: us-east-1b
-    vpc_subnet_id: "{{ AWSvpc_subnet_id }}"
+#    zone: "{{ AWSzone }} "
+    vpc_subnet_id: "{{ AWSvpc_subnet_id[0] }}"
     wait: true
-    exact_count: 2
+    exact_count: 1
+    count_tag:
+      Gluster: Cluster
+    instance_tags:
+      Gluster: Cluster
+      Name: GlusterCluster
+
+- name: Provision Gluster Cluster in second subnet
+  ec2:
+    key_name: "{{ AWSkey_name }}"
+    group_id: "{{ AWSgroup_id }}"
+    instance_type: t2.micro
+    image: "{{ AWSimage_id }}"
+    volumes: 
+      - device_name: /dev/sdb
+        delete_on_termination: true
+        volume_type: gp2
+        volume_size: 2
+        snapshot: snap-04adac52ef92895ad
+    region: "{{ AWSregion }}"
+#    zone: "{{ AWSzone }} "
+    vpc_subnet_id: "{{ AWSvpc_subnet_id[1] }}"
+    wait: true
+    exact_count: 1
     count_tag:
       Gluster: Cluster
     instance_tags:
@@ -26,17 +49,36 @@
       Name: GlusterCluster
 
 
-- name: Provision Gluster Client
+
+
+- name: Provision Gluster Client in first subnet
   ec2:
     key_name: "{{ AWSkey_name }}"
     group_id: "{{ AWSgroup_id }}"
     instance_type: t2.micro
-    image: ami-49c9295f
+    image: "{{ AWSimage_id }}"
     region: "{{ AWSregion }}"
-    zone: "{{ AWSzone }}"
-    vpc_subnet_id: "{{ AWSvpc_subnet_id }}"
+#    zone: "{{ AWSzone }}"
+    vpc_subnet_id: "{{ AWSvpc_subnet_id[0] }}"
     wait: true
-    exact_count: 2
+    exact_count: 1
+    count_tag:
+      Gluster: Client
+    instance_tags:
+      Gluster: Client
+      Name: GlusterClient
+
+- name: Provision Gluster Client in second subnet
+  ec2:
+    key_name: "{{ AWSkey_name }}"
+    group_id: "{{ AWSgroup_id }}"
+    instance_type: t2.micro
+    image: "{{ AWSimage_id }}"
+    region: "{{ AWSregion }}"
+#    zone: "{{ AWSzone }}"
+    vpc_subnet_id: "{{ AWSvpc_subnet_id[1] }}"
+    wait: true
+    exact_count: 1
     count_tag:
       Gluster: Client
     instance_tags:
