@@ -44,15 +44,16 @@
       - " {{ ansible_play_batch[0] }}"
       - " {{ ansible_play_batch[1] }}"
     replicas: 2
+    force: true
   run_once: yes
 
-- name: verify Gluster volume started
-  gluster_volume:
-    state: started
-    name: test1
-    bricks: /export/xvdb1/brick1
-    cluster: 
-      - " {{ ansible_play_batch[0] }}"
-      - " {{ ansible_play_batch[1] }}"
-    replicas: 2
-  run_once: yes
+#- name: verify Gluster volume started
+#  gluster_volume:
+#    state: started
+#    name: test1
+#    bricks: /export/xvdb1/brick1
+#    cluster: 
+#      - " {{ ansible_play_batch[0] }}"
+#      - " {{ ansible_play_batch[1] }}"
+#    replicas: 2
+#  run_once: yes

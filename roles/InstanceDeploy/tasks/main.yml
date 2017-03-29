@@ -36,7 +36,7 @@
     zone: "{{ AWSzone }}"
     vpc_subnet_id: "{{ AWSvpc_subnet_id }}"
     wait: true
-    exact_count: 0
+    exact_count: 2
     count_tag:
       Gluster: Client
     instance_tags:
