@@ -32,4 +32,10 @@
 - file:
     path: /export/xvdb1/brick
     state: directory
-      
+
+
+#this is to test the conditional
+- file:
+    path: /export/xvdb1/brick/nope
+    state: directory
+    when: {{ inventory_hostname }} = {{ tag_Gluster_Cluster[0] }}
