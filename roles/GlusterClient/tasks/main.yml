@@ -27,7 +27,7 @@
 - debug:
     var: glusterServer
 
--debug:
+- debug:
     var: glusterServer[1]
 
 #- name: Mount Gluster Volume
