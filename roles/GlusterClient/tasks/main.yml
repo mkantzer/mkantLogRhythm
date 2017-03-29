@@ -28,6 +28,9 @@
     var: glusterServer
 
 - debug:
+    var: glusterServer[0]
+
+- debug:
     var: "{{glusterServer}}"
 
 - debug:
