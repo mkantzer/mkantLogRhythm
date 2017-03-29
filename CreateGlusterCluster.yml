@@ -4,7 +4,16 @@
   become: yes
   become_method: sudo
   gather_facts: true
-  vars:
-  roles:
-
   tasks: 
+  - name: Create Gluster Cluster
+      gluster_volume:
+      state: present
+      start_on_create: yes
+      name: test1
+      bricks: /export/xvdb1/brick1
+      cluster: 
+        - " {{ ansible_play_batch[0] }}"
+        - " {{ ansible_play_batch[1] }}"
+      replicas: 2
+      force: true
+    run_once: yes
