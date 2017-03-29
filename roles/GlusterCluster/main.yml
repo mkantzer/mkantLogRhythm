@@ -16,3 +16,23 @@
   apt:
     name : xfsprogs
     state: latest
+
+
+- name: Configure second volume file system
+  - filesystem: 
+      fstype: xfs
+      dev: /dev/xvdb1
+
+
+- name: Mount second volume, even after boot
+    mount:
+      path: /export/xvdb1
+      src: /dev/xvdb1
+      fstype: xfs
+      state: mounted
+
+- name: create Brick directory
+  - file:
+      path: /export/xvdb1/brick
+      state: directory
+      
