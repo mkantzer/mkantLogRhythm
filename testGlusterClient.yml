@@ -13,6 +13,6 @@
       - banana
       - cake
     glusterServer:
-      - groups['tag_Gluster_Cluster']
+      - "{{ groups['tag_Gluster_Cluster'] }}"
   roles:
   - GlusterClient
