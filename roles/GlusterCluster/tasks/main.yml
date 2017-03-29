@@ -34,8 +34,8 @@
     state: directory
 
 
-#this is to test the conditional
-#- file:
-#    path: /export/xvdb1/brick/nope
-#    state: directory
-#    when: $inventory_hostname  == "172.31.5.217"
+this is to test the conditional
+- file:
+    path: /export/xvdb1/brick/nope
+    state: directory
+    when: tag_Gluster_Cluster[0]  == inventory_hostname
