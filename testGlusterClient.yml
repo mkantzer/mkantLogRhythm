@@ -13,6 +13,6 @@
       - banana
       - cake
     glusterServer:
-      - {{hostvars['tag_Gluster_Client']}}
+      - "{{hostvars['tag_Gluster_Client']}}"
   roles:
   - GlusterClient
