@@ -21,8 +21,10 @@
     exact_count: 1
     count_tag:
       Gluster: Cluster
+      Subnet: "{{ AWSvpc_subnet_id[0] }}"
     instance_tags:
       Gluster: Cluster
+      Subnet: "{{ AWSvpc_subnet_id[0] }}"
       Name: GlusterCluster
 
 - name: Provision Gluster Cluster in second subnet
@@ -44,8 +46,10 @@
     exact_count: 1
     count_tag:
       Gluster: Cluster
+      Subnet: "{{ AWSvpc_subnet_id[1] }}"
     instance_tags:
       Gluster: Cluster
+      Subnet: "{{ AWSvpc_subnet_id[1] }}"
       Name: GlusterCluster
 
 
@@ -64,9 +68,11 @@
     exact_count: 1
     count_tag:
       Gluster: Client
+      Subnet: "{{ AWSvpc_subnet_id[0] }}"
     instance_tags:
       Gluster: Client
       Name: GlusterClient
+      Subnet: "{{ AWSvpc_subnet_id[0] }}"
 
 - name: Provision Gluster Client in second subnet
   ec2:
@@ -81,6 +87,8 @@
     exact_count: 1
     count_tag:
       Gluster: Client
+      Subnet: "{{ AWSvpc_subnet_id[1] }}"
     instance_tags:
       Gluster: Client
+      Subnet: "{{ AWSvpc_subnet_id[1] }}"
       Name: GlusterClient
