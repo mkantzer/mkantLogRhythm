@@ -28,7 +28,13 @@
     var: glusterServer
 
 - debug:
-    var: glusterServer[1]
+    var: {{glusterServer}}
+
+- debug:
+    var: {{ glusterServer[0] }}
+
+- debug:
+    var: "{{ glusterServer[0] }}"    
 
 #- name: Mount Gluster Volume
 #  mount:
