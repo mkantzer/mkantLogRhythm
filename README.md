@@ -38,14 +38,14 @@ AWS Configuration
     * Connect it to the new VPC
     * Connect both subnets to new NACL
     * Set the rules:
-	* for both inbound and outbound:
+      * for both inbound and outbound:
 	
-	| Rule #  | Type | Protocol | Port Range | Source/Destination | Allow/Deny |
-	| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-	| 100 | ALL Traffic | ALL | ALL | 0.0.0.0/0 | ALLOW |
-	| * | ALL Traffic | ALL | ALL | 0.0.0.0/0 | DENY |
+      | Rule #  | Type | Protocol | Port Range | Source/Destination | Allow/Deny |
+      | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
+      | 100 | ALL Traffic | ALL | ALL | 0.0.0.0/0 | ALLOW |
+      | * | ALL Traffic | ALL | ALL | 0.0.0.0/0 | DENY |
 		
-	* Please see Known Issues for justification for the excessive permissiveness
+      * Please see Known Issues for justification for the excessive permissiveness
 * Create new Internet Gateway
     * Attach it to the new VPC
 * Create New Route Table
@@ -99,6 +99,7 @@ AWS Configuration
     * Enter Tag: Name | Ansible
     * Select the new Security group
     * Select the new key pair when launching
+
 * SSH into the EC2 instance, using the downlaoded .pem, and connecting to ubuntu@{public DNS of instance}
     * If connecting from windows/PuTTY, you may need to use puttygen to convert the .pem to a ppk
 *Run the following commands:
@@ -118,19 +119,19 @@ AWS Configuration
     touch ~/.ssh/{name_of_new_key}.pem
     chmod 700 ~/.ssh/{name_of_new_key}.pem
     vi ~/.ssh/{name_of_new_key}.pem
-    	* Paste contents of your .pem into this file
-    	* save with :wq
+        * Paste contents of your .pem into this file
+        * save with :wq
     ssh-agent bash
     ssh-add ~/.ssh/{name_of_new_key}.pem
     sudo chmod +x /etc/ansible/ec2.py
     export AWS_ACCESS_KEY_ID='Access_Key'
-    	* replace Access_Key with the one noted earlier
+        * replace Access_Key with the one noted earlier
     export AWS_SECRET_ACCESS_KEY='Secret_Key'
-    	* replace Secret_Key with the one noted earlier
+        * replace Secret_Key with the one noted earlier
     export ANSIBLE_HOSTS=/etc/ansible/ec2.py
     cd /etc/ansible
     ansible all -m ping
-    	* This should return a green success (and sometimes a purple warning)
+        * This should return a green success (and sometimes a purple warning)
     ```
 		
 * Edit environmental variables:
