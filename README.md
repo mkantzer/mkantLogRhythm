@@ -60,9 +60,38 @@ VPC setup:
 		| HTTPS | TCP | 443 | 0.0.0.0/0 |
 		| HTTPS | TCP | 443 | ::/0 |
 		| ALL traffic | ALL | ALL | {id for this security group} |
-		
 		* Outbound should have an additional:
+		
 		| ALL traffic | ALL | ALL | ::/0 |
+
+7. Create IAM role
+	* Named Ansible
+	* Grant Poweruser Access
+8. Create IAM User
+	* Named Ansible
+	* Programatic Access
+	* Poweruser Permissions
+	* **Make sure you note both the Access Key ID and the Secret Key for later use**
+9. Create new Key Pair
+	* **Make sure you save the .pem it will download. This will be needed to access all instances created**
+	* Note down name of key
+
+10. Create Ansible Master
+	1. Launch EC2 instance:
+		* free-tier Ubuntu 14.04 LTS, ami-49c9295f 
+			*(if this image is not available, copy new value for later use)
+		* t2.micro
+		* Connected to the new VPC
+		* Auto-assign public IP
+		* IAM Role: Ansible
+		* Shutdown behavior: stop
+		* 8 GB GP2 storage, delete on termination
+			* This should be the standard, and auto-populated
+		* Tag: Name | Ansible
+		
+
+
+
 ## Execution
 
 
@@ -93,7 +122,9 @@ VPC setup:
  
 
 ## Known Issues and Breachs of Best Practices
-	
+
+
+  * The IAM role used by Ansible has a larger amount of permissions than strictly required. It would be better to limit these to the minimum required. 
   * My AWS permissions are extreemly loose, especially in the Network Access Control Lists, route tables, and the Security Groups. These should be locked down much further, allowing conenctions to and from only the IP addresses that require them, and restriciting traffic types. However, for this proof of concept, flexability was considered more important than direct security, as no data would actually be housed wihtin the servers.
   * If a Cluster node fails (for example, is terminated from the AWS console), re-runnign the playbook does not add a new node to the cluster. 
   * ignore_errors has been set to true when creating the gluster volume. This is due to a bug in the module, where it attempts to execute "gluster volume add-brick" against each server in the cluster, when it only needs to execute against a single one. As a result, on the second node, it tries to add a brick that is already added, and runs into an error. The volume was still created, however, so I am treating this as a success condition. Please note that this occurs even though I have flagged run_once in the task, so that it still only runs the command on a single server. 
