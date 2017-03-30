@@ -168,7 +168,14 @@ Please note that you should re-start whichever is down before stopping the other
 
 ## Solution Description
 
+This project uses Ansible v2.2.2.0, hosted in Amazon Cloud Services, to deploy two GlusterFS nodes, configure them into a cluster, configure and launch a redunant volume on that cluster, and then mount that volume on two clients.
+The networking configuration places one node and one client on each of two sub-nets, which are hosted in different availability zones for increased reliability; if one availabilty zone goes down, the other is still accessable. 
 
+Tool Choices:
+
+  * AWS was chosen for speed, ease of use, familiarity, and ability to integrate automation easily.
+  * Ansible was chosen because
+	
 
 
 
