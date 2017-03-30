@@ -103,7 +103,9 @@ VPC setup:
 		sudo apt-add-repository -y ppa:ansible/ansible
 		sudo apt-get update
 		sudo apt-get install -y ansible
-			* You may be prompted about repeated files. if so, keep current. I have made changes to some cfg files. use option 'N'
+			* You may be prompted about repeated files. if so, keep current. 
+			* I have made changes to some cfg files. 
+			* Use option 'N'
 		sudo apt-get install -y python-pip
 		sudo pip install -U boto
 		touch ~/.ssh/{name_of_new_key}.pem
@@ -113,52 +115,82 @@ VPC setup:
 			* save with :wq
 		ssh-agent bash
 		ssh-add ~/.ssh/{name_of_new_key}.pem
-		ansible localhost -m ping
-			Ensure you get a purple warning about empty hosts list, followed by a green ping-pong response
 		sudo chmod +x /etc/ansible/ec2.py
-		export AWS_ACCESS_KEY_ID='{ACCESS KEY FROM PERMISSIONS(2)'
-		export AWS_SECRET_ACCESS_KEY='{SECRET KEY FROM PERMISSIONS(2)'
+		export AWS_ACCESS_KEY_ID='{Access_Key_for_AIM_user}'
+		export AWS_SECRET_ACCESS_KEY='{Secret_Key_for_AIM_user}'
 		export ANSIBLE_HOSTS=/etc/ansible/ec2.py
 		cd /etc/ansible
 		ansible all -m ping
-			-If this does not return a green success (and sometimes a purple warning):
-			-edit /etc/ansible/ec2.ini, line 16, to include your region, and only your region. 
+			* This should return a green success (and sometimes a purple warning)
 		```
+		
+	4. Edit environmental variables:
 
+		` vi group_vars/all`
+		
+		| Variable | Use |
+		| --- | --- |
+		| AWSkey_name | Key pair name created earlier, used in deploying and accessing instances |
+		| AWSgroup_id | Security Group ID |
+		| AWSregion | Region name. This should be us-east-1 |
+		| AWSvpc_subnet_id | IDs for subnets created earlier |
+		| AWSimage_id | Image to use in deploying instances. Please use ami-49c9295f unless it was unavailable earlier; solution is configured for ubuntu 14.04 |
+				
+Note: If you ever disconnect from your SSH session, you will need to re-initialize:
+
+```
+ssh-agent bash 
+ssh-add ~/.ssh/{key name}.pem 
+export AWS_ACCESS_KEY_ID='{key}' 
+export AWS_SECRET_ACCESS_KEY='{secret}' 
+export ANSIBLE_HOSTS=/etc/ansible/ec2.py
+cd /etc/ansible
+```		
+		
 ## Execution
 
+At this point, we are fully configured, and are ready to execute the deployment playbook:
 
+`ansible-playbook master.yml`
 
+Allow the playbook to run completely. 
 
+## Verification
+
+Check your AWS EC2 instances console. There should be 4 new instances, 2 named GlusterCluster and 2 named GlusterClient. 
+
+SSH into the 2 Client machines, navigate to `/mnt/gluster`, and then create a file in one with `sudo touch test.txt`
+Now, `ls` in both, and you should see that file replicated to the second instance.  
+
+You can stop (not terminate) either of the instances labeled GlusterCluster, and the replication will still work. 
+Please note that you should re-start whichever is down before stopping the other one.  
 
 
 ## Solution Description
 
+This project uses Ansible v2.2.2.0, hosted in Amazon Cloud Services, to deploy two GlusterFS nodes, configure them into a cluster, configure and launch a redunant volume on that cluster, and then mount that volume on two clients.
+The networking configuration places one node and one client on each of two sub-nets, which are hosted in different availability zones for increased reliability; if one availabilty zone goes down, the other is still accessable. 
+
+Tool Choices:
+
+  * AWS was chosen for speed, ease of use, familiarity, and ability to integrate automation easily.
+  * Ansible was chosen because
+	
 
 
 
 
 
 
-
- * bullited
- * list
- * of
- * things
- `to mark it as a box`
- ```
- lots of things
- that you can put
- into a single command box
- ```
-  [releases.ansible.com](https://releases.ansible.com/ansible)
- 
 
 ## Known Issues and Breachs of Best Practices
 
 
   * The IAM role used by Ansible has a larger amount of permissions than strictly required. It would be better to limit these to the minimum required. 
   * My AWS permissions are extreemly loose, especially in the Network Access Control Lists, route tables, and the Security Groups. These should be locked down much further, allowing conenctions to and from only the IP addresses that require them, and restriciting traffic types. However, for this proof of concept, flexability was considered more important than direct security, as no data would actually be housed wihtin the servers.
+  * bota is currently receiving access keys via environment variables. While this does work, there are cleaner and more permanant ways to accomplish this (namely via roles)
+  * Source control/playbooks/scripts are all stored in etc/ansible. This is so that I could correctly manage the .cfg and .ini files, as well as proving a central place to hold everything. 
+  * There is a 30 second pause in the middle of execution to allow boto/ec2.py to re-cache the inventory. This, in conjunction with decreasing the ec2.ini value for the time to keep a cahce to 25 seconds (from 300) is an in-elegent solution to the problem of re-initalizing the cache after adding new instances, as well as allowing for enough time for them to become avaialable. A better solution would most likely be along the lines of a looping structure that exits when it detects the new instances (or after a set time)
   * If a Cluster node fails (for example, is terminated from the AWS console), re-runnign the playbook does not add a new node to the cluster. 
   * ignore_errors has been set to true when creating the gluster volume. This is due to a bug in the module, where it attempts to execute "gluster volume add-brick" against each server in the cluster, when it only needs to execute against a single one. As a result, on the second node, it tries to add a brick that is already added, and runs into an error. The volume was still created, however, so I am treating this as a success condition. Please note that this occurs even though I have flagged run_once in the task, so that it still only runs the command on a single server. 
   * Security has not been configured on GlusterFS; anyone can currently mount the volume if they know where to point. This is because of the previously mentioned bug in the gluster_volume module
@@ -167,4 +199,4 @@ VPC setup:
 
 ## Potential Improvements
 
-	* Deploy the Ansible Master from a pre-configured snapshot/AMI. This was not done for the current implementation because of sharing requirements. 
+  * Deploy the Ansible Master from a pre-configured snapshot/AMI. This was not done for the current implementation because of sharing requirements. 
