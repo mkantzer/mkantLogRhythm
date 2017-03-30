@@ -28,7 +28,14 @@ If you have any questions on a step, please feel free to contact me.
 Installation
 ============
 
+PLEASE NOTE: Full deployment must occur within the us-east-1 (N. Virginia) AWS region due to resource availability. 
 
+VPC setup:
+1. Create New VPC
+..1. 10.0.0.0/16 for IPv4 CIDR block
+..2. enable DNS hostnames
+2. Create Subnets
+..1. 
 
 
 
@@ -66,7 +73,8 @@ Known Issues and Breachs of Best Practices
 	
 
   * if a Cluster node fails (for example, is terminated from the AWS console), re-runnign the playbook does not add a new node to the cluster. 
-  * Security has not been configured on GlusterFS; anyone can currently mount 
+  *ignore_errors has been set to true when creating the gluster volume. This is due to a bug in the module, where it attempts to execute "gluster volume add-brick" against each server in the cluster, when it only needs to execute against a single one. As a result, on the second node, it tries to add a brick that is already added, and runs into an error. The volume was still created, however, so I am treating this as a success condition. Please note that this occurs even though I have flagged run_once in the task, so that it still only runs the command on a single server. 
+  * Security has not been configured on GlusterFS; anyone can currently mount the volume if they know where to point. This is because of the previously mentioned bug in the gluster_volume module
 
 
 Potential Improvements
