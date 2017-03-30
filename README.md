@@ -193,15 +193,11 @@ The networking configuration places one node and one client on each of two sub-n
 
 Using two GlusterFS nodes with "replica 2" set on them achieves the single-fault-tolerent requirement; either one can be lost without losing any data. 
 
-
-
 Tool Choices:
   * AWS was chosen for speed, ease of use, familiarity, and ability to integrate automation easily.
   * Ansible was chosen because of its notabel ease of use, speed of development, use of Python and YAML syntax, and wide variety of built-in modules ("batteries included"). This extended all the way down to a glusterFS volume management module. Additionally, it was extreemly easy to connect to AWS for dynamic inventory management. Finally, ansible is known for its idempotency, which I have done my best to maintain; it checks for the current status before making changes, only when they are required to return a system to the desired configuration.  
-	
 
-
-## Known Issues and Breachs of Best Practices
+## Known Issues and Breaches of Best Practices
 
   * The IAM role used by Ansible has a larger amount of permissions than strictly required. It would be better to limit these to the minimum required. 
   * My AWS permissions are extreemly loose, especially in the Network Access Control Lists, route tables, and the Security Groups. These should be locked down much further, allowing conenctions to and from only the IP addresses that require them, and restriciting traffic types. However, for this proof of concept, flexability was considered more important than direct security, as no data would actually be housed wihtin the servers.
