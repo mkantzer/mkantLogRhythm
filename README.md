@@ -55,12 +55,20 @@ Specifications:
 		
 		* Please see "Known Issues" for justification for the excessive permissiveness
 
-* Create new Internet Gateway
-    * Attach it to the new VPC
-* Create New Route Table
-    * Connect both new subnets to the table
-    * Under routes, add 0.0.0.0/0 and your IGW name
-    	* Please see "Known Issues" for justification for the excessive permissiveness
+* Create new Internet Gateway  
+Specifications:  
+	* VPC: New VPC created above
+
+* Create New Route Table  
+Specifications:
+	* Subnet Associations: Both new Subnets created above
+	* Routes:  
+	
+		| Destination | Target |
+		| --- | --- |
+		| 0.0.0.0/0 | {New IGW-ID}
+		* Please see "Known Issues" for justification for the excessive permissiveness
+
 * Create New Security Group
     * Associate it with the new VPC
     * Note down the security group ID  
