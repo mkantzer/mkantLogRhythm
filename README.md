@@ -71,9 +71,9 @@ Specifications:
 
 * Create New Security Group  
 	* Note down the security group ID  
-	
-Specifications:  
 
+Specifications: 
+		
 	* VPC: New VPC created above
 	* Rules: 
 
@@ -88,9 +88,9 @@ Specifications:
 		| HTTPS | TCP | 443 | 0.0.0.0/0 |
 		| HTTPS | TCP | 443 | ::/0 |
 		| ALL traffic | ALL | ALL | {id for this security group} |
-		
+
 		* Outbound should have an additional:
-		
+
 		| Type  | Protocol | Port Range | Source |
 		| ------------- | ------------- | ------------- | ------------- |
 		| ALL traffic | ALL | ALL | ::/0 |
