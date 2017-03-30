@@ -68,11 +68,11 @@ Solution Description
  * of
  * things
  `to mark it as a box`
- '''
+ ```
  lots of things
  that you can put
  into a single command box
- '''
+ ```
   [releases.ansible.com](https://releases.ansible.com/ansible)
  
 Execution
