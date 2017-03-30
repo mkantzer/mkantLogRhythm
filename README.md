@@ -62,6 +62,8 @@ VPC setup:
 		| ALL traffic | ALL | ALL | {id for this security group} |
 		* Outbound should have an additional:
 		
+		| Type  | Protocol | Port Range | Source |
+		| ------------- | ------------- | ------------- | ------------- |
 		| ALL traffic | ALL | ALL | ::/0 |
 
 7. Create IAM role
@@ -88,9 +90,40 @@ VPC setup:
 		* 8 GB GP2 storage, delete on termination
 			* This should be the standard, and auto-populated
 		* Tag: Name | Ansible
-		
-
-
+		* Security group: The new one
+		* When launching, be sure to use the new key pair
+	2. SSH into the EC2 instance, using the downlaoded .pem, and connecting to ubuntu@{public DNS of instance}
+		* If connecting from windows/PuTTY, you may need to use puttygen to convert the .pem to a ppk
+	3. Run the following commands:
+		```
+		sudo apt-get update
+		sudo apt-get -y install git
+		sudo git clone https://github.com/mkantzer/mkantLogRhythm /etc/ansible
+		sudo apt-get -y install software-properties-common
+		sudo apt-add-repository -y ppa:ansible/ansible
+		sudo apt-get update
+		sudo apt-get install -y ansible
+			* You may be prompted about repeated files. if so, keep current. I have made changes to some cfg files. use option 'N'
+		sudo apt-get install -y python-pip
+		sudo pip install -U boto
+		touch ~/.ssh/{name_of_new_key}.pem
+		sudo chmod 700 ~/.ssh/{name_of_new_key}.pem
+		vi ~/.ssh/{name_of_new_key}.pem
+			* Paste contents of your .pem into this file
+			* save with :wq
+		ssh-agent bash
+		ssh-add ~/.ssh/{name_of_new_key}.pem
+		ansible localhost -m ping
+			Ensure you get a purple warning about empty hosts list, followed by a green ping-pong response
+		sudo chmod +x /etc/ansible/ec2.py
+		export AWS_ACCESS_KEY_ID='{ACCESS KEY FROM PERMISSIONS(2)'
+		export AWS_SECRET_ACCESS_KEY='{SECRET KEY FROM PERMISSIONS(2)'
+		export ANSIBLE_HOSTS=/etc/ansible/ec2.py
+		cd /etc/ansible
+		ansible all -m ping
+			-If this does not return a green success (and sometimes a purple warning):
+			-edit /etc/ansible/ec2.ini, line 16, to include your region, and only your region. 
+		```
 
 ## Execution
 
@@ -133,3 +166,5 @@ VPC setup:
 
 
 ## Potential Improvements
+
+	* Deploy the Ansible Master from a pre-configured snapshot/AMI. This was not done for the current implementation because of sharing requirements. 
