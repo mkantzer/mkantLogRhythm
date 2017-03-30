@@ -43,17 +43,18 @@ Specifications:
 
 * Create new Network Access Control List  
 Specifications:
-   	* Connect it to the new VPC
-	* Connect both subnets to new NACL
-	* Set the rules:
-      * for both inbound and outbound:
+   	* VPC: New VPC created above
+	* Subnets: Both new Subnets created above
+	* Rules:
+		* for both inbound and outbound:
 
-      | Rule #  | Type | Protocol | Port Range | Source/Destination | Allow/Deny |
-      | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-      | 100 | ALL Traffic | ALL | ALL | 0.0.0.0/0 | ALLOW |
-      | * | ALL Traffic | ALL | ALL | 0.0.0.0/0 | DENY |
+		| Rule #  | Type | Protocol | Port Range | Source/Destination | Allow/Deny |
+		| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
+		| 100 | ALL Traffic | ALL | ALL | 0.0.0.0/0 | ALLOW |
+		| * | ALL Traffic | ALL | ALL | 0.0.0.0/0 | DENY |
+		
+		* Please see "Known Issues" for justification for the excessive permissiveness
 
-      * Please see "Known Issues" for justification for the excessive permissiveness
 * Create new Internet Gateway
     * Attach it to the new VPC
 * Create New Route Table
