@@ -180,7 +180,7 @@ SSH into the 2 Client machines, navigate to `/mnt/gluster`, and then create a fi
 Now, `ls` in both, and you should see that file replicated to the second instance.  
 
 You can stop (not terminate) either of the instances labeled GlusterCluster, and the replication will still work. 
-Please note that you should re-start whichever is down before stopping the other one.  
+Please note that you should fully re-start whichever is down prior to stopping the other one.  
 
 
 ## Solution Description
