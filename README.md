@@ -120,7 +120,7 @@ VPC setup:
 		sudo chmod +x /etc/ansible/ec2.py
 		export AWS_ACCESS_KEY_ID='Access_Key'
 			* replace Access_Key with the one noted earlier
-		export AWS_SECRET_ACCESS_KEY='{Secret_Key}'
+		export AWS_SECRET_ACCESS_KEY='Secret_Key'
 			* replace Secret_Key with the one noted earlier
 		export ANSIBLE_HOSTS=/etc/ansible/ec2.py
 		cd /etc/ansible
