@@ -111,7 +111,7 @@ VPC setup:
 		sudo apt-get install -y python-pip
 		sudo pip install -U boto
 		touch ~/.ssh/{name_of_new_key}.pem
-		sudo chmod 700 ~/.ssh/{name_of_new_key}.pem
+		chmod 700 ~/.ssh/{name_of_new_key}.pem
 		vi ~/.ssh/{name_of_new_key}.pem
 			* Paste contents of your .pem into this file
 			* save with :wq
