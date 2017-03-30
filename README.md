@@ -197,4 +197,4 @@ Tool Choices:
 ## Potential Improvements
 
   * Deploy the Ansible Master from a pre-configured snapshot/AMI. This was not done for the current implementation because of sharing requirements. 
-  * This solution only has 2 nodes connected to the replicated volume. In a produciton environment, it would be best to use 3 (spread between 3 availability zones) for increased redundency/ 
+  * This solution only has 2 nodes connected to the replicated volume. In a produciton environment, it would be best to use 3 (spread between 3 availability zones) for increased redundency
