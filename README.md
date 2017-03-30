@@ -43,7 +43,21 @@ VPC setup:
 		* you may need to change this in subnet actions
 	6. Note down the subnet ids
 3. Network Access Control Lists
-	1. 
+	1. Create new NACL, and connect it to the new VPC
+	2. Make sure both subnets are connected to the new NACL
+	3. Set the rules:
+		* for both inbound and outbound, create a new rule, number 100, for all traffic types, from all protocols, on all port ranges, for source 0.0.0.0/0, set to ALLOW
+		* Please see Known Issues for justification for the excessive permissiveness
+4. Create Internet Gateway
+	* attach it to the new VPC
+5. Create Route Table
+	1. Connect both new subnets to the table
+	2. Under routes, add 0.0.0.0/0 and your IGW name
+		* Please see Known Issues for justification for the excessive permissiveness
+6. Create Security Group
+	1. Associate it with the new VPC
+	2. 
+
 
 Execution
 ==================
@@ -82,7 +96,7 @@ Execution
 Known Issues and Breachs of Best Practices
 =======
 	
-  * My AWS permissions are extreemly loose, especially in the Network Access Control Lists, and the Security Groups. These should be locked down much further, allowing conenctions to and from only the IP addresses that require them, and restriciting traffic types. However, for this proof of concept, flexability was considered more important than direct security, as no data would actually be housed wihtin the servers.
+  * My AWS permissions are extreemly loose, especially in the Network Access Control Lists, route tables, and the Security Groups. These should be locked down much further, allowing conenctions to and from only the IP addresses that require them, and restriciting traffic types. However, for this proof of concept, flexability was considered more important than direct security, as no data would actually be housed wihtin the servers.
   * If a Cluster node fails (for example, is terminated from the AWS console), re-runnign the playbook does not add a new node to the cluster. 
   * ignore_errors has been set to true when creating the gluster volume. This is due to a bug in the module, where it attempts to execute "gluster volume add-brick" against each server in the cluster, when it only needs to execute against a single one. As a result, on the second node, it tries to add a brick that is already added, and runs into an error. The volume was still created, however, so I am treating this as a success condition. Please note that this occurs even though I have flagged run_once in the task, so that it still only runs the command on a single server. 
   * Security has not been configured on GlusterFS; anyone can currently mount the volume if they know where to point. This is because of the previously mentioned bug in the gluster_volume module
