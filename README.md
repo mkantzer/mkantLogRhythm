@@ -185,20 +185,20 @@ Please note that you should fully re-start whichever is down prior to stopping t
 
 ## Solution Description
 
-This project uses Ansible v2.2.2.0, hosted in Amazon Cloud Services, to deploy two GlusterFS nodes, configure them into a cluster, configure and launch a redunant volume on that cluster, and then mount that volume on two clients.
-The networking configuration places one node and one client on each of two sub-nets, which are hosted in different availability zones for increased reliability; if one availabilty zone goes down, the other is still accessable. 
+This project uses Ansible v2.2.2.0, hosted in Amazon Cloud Services, to deploy two GlusterFS nodes, configure them into a cluster, configure and launch a redundant volume on that cluster, and then mount that volume on two clients.
+The networking configuration places one node and one client on each of two sub-nets, which are hosted in different availability zones for increased reliability; if one availability zone goes down, the other is still accessible. 
 
-Using two GlusterFS nodes with "replica 2" set on them achieves the single-fault-tolerent requirement; either one can be lost without losing any data. 
+Using two GlusterFS nodes with "replica 2" set on them achieves the single-fault-tolerant requirement; either one can be lost without losing any data. 
 
 Tool Choices:
   * AWS was chosen for speed, ease of use, familiarity, and ability to integrate automation easily.
-  * Ansible was chosen because of its notabel ease of use, speed of development, use of Python and YAML syntax, and wide variety of built-in modules ("batteries included"). This extended all the way down to a glusterFS volume management module. Additionally, it was extreemly easy to connect to AWS for dynamic inventory management. Finally, ansible is known for its idempotency, which I have done my best to maintain; it checks for the current status before making changes, only when they are required to return a system to the desired configuration.  
+  * Ansible was chosen because of its notable ease of use, speed of development, use of Python and YAML syntax, and wide variety of built-in modules ("batteries included"). This extended all the way down to a glusterFS volume management module. Additionally, it was extremely easy to connect to AWS for dynamic inventory management. Finally, Ansible is known for its idempotency, which I have done my best to maintain; it checks for the current status before making changes, only when they are required to return a system to the desired configuration.  
 
 ## Known Issues and Breaches of Best Practices
 
   * The IAM role used by Ansible has a larger amount of permissions than strictly required. It would be better to limit these to the minimum required. 
-  * My AWS permissions are extreemly loose, especially in the Network Access Control Lists, route tables, and the Security Groups. These should be locked down much further, allowing conenctions to and from only the IP addresses that require them, and restriciting traffic types. However, for this proof of concept, flexability was considered more important than direct security, as no data would actually be housed wihtin the servers.
-  * bota is currently receiving access keys via environment variables. While this does work, there are cleaner and more permanant ways to accomplish this (namely via roles)
+  * My AWS permissions are extremely loose, especially in the Network Access Control Lists, route tables, and the Security Groups. These should be locked down much further, allowing connections to and from only the IP addresses that require them, and restricting traffic types. However, for this proof of concept, flexibility was considered more important than direct security, as no data would actually be housed within the servers.
+  * Boto is currently receiving access keys via environment variables. While this does work, there are cleaner and more permanant ways to accomplish this (namely via roles)
   * Source control/playbooks/scripts are all stored in etc/ansible. This is so that I could correctly manage the .cfg and .ini files, as well as proving a central place to hold everything. 
   * There is a 30 second pause in the middle of execution to allow boto/ec2.py to re-cache the inventory. This, in conjunction with decreasing the ec2.ini value for the time to keep a cahce to 25 seconds (from 300) is an in-elegent solution to the problem of re-initalizing the cache after adding new instances, as well as allowing for enough time for them to become avaialable. A better solution would most likely be along the lines of a looping structure that exits when it detects the new instances (or after a set time)
   * If a Cluster node fails (for example, is terminated from the AWS console), re-runnign the playbook does not add a new node to the cluster. 
