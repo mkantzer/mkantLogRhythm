@@ -1,19 +1,16 @@
 # mkantLogRhythm
 
 ## Introduction
-This codebase was created for Michael Kantzer's evaluation with LogRhythm. The task was to automate the creation of a GlusterFS storage cluster with single node failure fault tolerance, with no data loss. Automation should start with the entry of a single command, and should use modern tools appropriate for the task
-These requirements have been met with the use of:
+This codebase was created for Michael Kantzer's evaluation with LogRhythm. The task was to automate the creation of a GlusterFS storage cluster with single node failure fault tolerance with no data loss. Automation should start with the entry of a single command and should use modern tools appropriate for the task; these requirements have been met with the use of the following:
   * Amazon Web Services for infrastructure
   * Ansible for automation
 ## Requirements Before Beginning
 
-This solution is built to run on Amazon Web Services. As such, an AWS account is required. Due to the relatively small nature of the solution, it should stay within the allotment for Free Teir usage. However, leaving multiple instances running past the end of the demonstration will exceed this limit, and could incur costs. Please be sure to clean up your environment after the evaluation. 
+This solution is built to run on Amazon Web Services (AWS); As such, an AWS account is required. Due to the relatively small nature of the solution, a Free Teir account should be sufficient. Note: Leaving multiple instances running beyond the end of the demonstration may exceed the limits imposed by AWS Free Tier, whcih may result in additional costs. Please be sure to clean up your environment after the evaluation. 
 
-Various components (namely, a disk snapshot that I have created and shared) are hosted in the AWS us-east-1 region. As the solution requires access to these resources, the evaluation environment must be hosted within AWS us-east-1. 
+Various components (primarily, the disk snapshot I have created and shared) are hosted in the AWS us-east-1 region. As the solution requires access to these resources, the evaluation environment must be hosted within AWS us-east-1. 
 
-Additionally, initial environmental setup is required. This is relatively straightforward, and is documented below, under Installation. Please be sure to follow the instructions carefully. 
-
-Setup assumes knowledge of the AWS webconsole, proficiency with command line, and knowlege of how to use SSH tools. 
+Additionally, an initial environmental setup is required. Please follow the instructions below (documented in the Installation section) to perform this setup. Setup assumes knowledge of the AWS web console, experience with SSH tools, and proficiency in using a command line interface. 
 
 If you have any questions on a step, please feel free to contact me. 
 
@@ -55,13 +52,13 @@ Specifications:
       | 100 | ALL Traffic | ALL | ALL | 0.0.0.0/0 | ALLOW |
       | * | ALL Traffic | ALL | ALL | 0.0.0.0/0 | DENY |
 
-      * Please see Known Issues for justification for the excessive permissiveness
+      * Please see "Known Issues" for justification for the excessive permissiveness
 * Create new Internet Gateway
     * Attach it to the new VPC
 * Create New Route Table
     * Connect both new subnets to the table
     * Under routes, add 0.0.0.0/0 and your IGW name
-    	* Please see Known Issues for justification for the excessive permissiveness
+    	* Please see "Known Issues" for justification for the excessive permissiveness
 * Create New Security Group
     * Associate it with the new VPC
     * Note down the security group ID  
@@ -98,7 +95,7 @@ Specifications:
 
 * Create New EC2 instance for Ansible
     * Select free-tier Ubuntu 14.04 LTS, ami-49c9295f 
-    	*(if this image is not available, copy new value for later use)
+    	* (if this image is not available, copy new value for later use)
     * Select t2.micro
     * Select the new VPC
     * Select Auto-assign public IP
@@ -112,7 +109,7 @@ Specifications:
 
 * SSH into the EC2 instance, using the downlaoded .pem, and connecting to ubuntu@{public DNS of instance}
     * If connecting from windows/PuTTY, you may need to use puttygen to convert the .pem to a ppk
-*Run the following commands:
+* Run the following commands:
     ```
     sudo apt-get update
     sudo apt-get -y install git
