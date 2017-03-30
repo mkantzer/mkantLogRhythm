@@ -23,11 +23,12 @@ If you have any questions on a step, please feel free to contact me.
 **NOTE: Full deployment must occur within the us-east-1 (N. Virginia) AWS region** due to resource availability. 
 
 AWS Configuration
-* Create New VPC
-Specification:
-    * Use 10.0.0.0/16 for IPv4 CIDR block
-    * Enable DNS hostnames
-* Create 2 New Subnets
+* Create New VPC  
+Specifications:  
+    * Use 10.0.0.0/16 for IPv4 CIDR block  
+    * Enable DNS hostnames  
+* Create 2 New Subnets  
+Specifications - Subnet 1:  
     * Attach to the new VPC
     * Use 10.0.0.0/20 for IPv4 CIDR block on the first
     * Use 10.0.16.0/20 for IPv4 CIDR block on the second
