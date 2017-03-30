@@ -166,7 +166,6 @@ You can stop (not terminate) either of the instances labeled GlusterCluster, and
 Please note that you should re-start whichever is down before stopping the other one.  
 
 
-
 ## Solution Description
 
 
@@ -176,24 +175,14 @@ Please note that you should re-start whichever is down before stopping the other
 
 
 
- * bullited
- * list
- * of
- * things
- `to mark it as a box`
- ```
- lots of things
- that you can put
- into a single command box
- ```
-  [releases.ansible.com](https://releases.ansible.com/ansible)
- 
 
 ## Known Issues and Breachs of Best Practices
 
 
   * The IAM role used by Ansible has a larger amount of permissions than strictly required. It would be better to limit these to the minimum required. 
   * My AWS permissions are extreemly loose, especially in the Network Access Control Lists, route tables, and the Security Groups. These should be locked down much further, allowing conenctions to and from only the IP addresses that require them, and restriciting traffic types. However, for this proof of concept, flexability was considered more important than direct security, as no data would actually be housed wihtin the servers.
+  * bota is currently receiving access keys via environment variables. While this does work, there are cleaner and more permanant ways to accomplish this (namely via roles)
+  * Source control/playbooks/scripts are all stored in etc/ansible. This is so that I could correctly manage the .cfg and .ini files, as well as proving a central place to hold everything. 
   * There is a 30 second pause in the middle of execution to allow boto/ec2.py to re-cache the inventory. This, in conjunction with decreasing the ec2.ini value for the time to keep a cahce to 25 seconds (from 300) is an in-elegent solution to the problem of re-initalizing the cache after adding new instances, as well as allowing for enough time for them to become avaialable. A better solution would most likely be along the lines of a looping structure that exits when it detects the new instances (or after a set time)
   * If a Cluster node fails (for example, is terminated from the AWS console), re-runnign the playbook does not add a new node to the cluster. 
   * ignore_errors has been set to true when creating the gluster volume. This is due to a bug in the module, where it attempts to execute "gluster volume add-brick" against each server in the cluster, when it only needs to execute against a single one. As a result, on the second node, it tries to add a brick that is already added, and runs into an error. The volume was still created, however, so I am treating this as a success condition. Please note that this occurs even though I have flagged run_once in the task, so that it still only runs the command on a single server. 
@@ -203,4 +192,4 @@ Please note that you should re-start whichever is down before stopping the other
 
 ## Potential Improvements
 
-	* Deploy the Ansible Master from a pre-configured snapshot/AMI. This was not done for the current implementation because of sharing requirements. 
+  * Deploy the Ansible Master from a pre-configured snapshot/AMI. This was not done for the current implementation because of sharing requirements. 
