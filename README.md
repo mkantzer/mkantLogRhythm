@@ -20,7 +20,7 @@ If you have any questions on a step, please feel free to contact me.
 
 ## Initial Setup 
 
-**PLEASE NOTE: Full deployment must occur within the us-east-1 (N. Virginia) AWS region** due to resource availability. 
+**NOTE: Full deployment must occur within the us-east-1 (N. Virginia) AWS region** due to resource availability. 
 
 AWS Configuration
 * Create New VPC
