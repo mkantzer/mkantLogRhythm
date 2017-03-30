@@ -71,6 +71,7 @@ Specifications:
 
 * Create New Security Group  
 	* Note down the security group ID  
+	
 Specifications:  
 	* VPC: New VPC created above
 	* Rules: 
