@@ -21,29 +21,18 @@ If you have any questions on a step, please feel free to contact me.
 
 AWS Configuration
 * Create New VPC  
-Specifications:  
 	* IPv4 CIDR block: 10.0.0.0/16  
 	* Enable DNS hostnames  
 * Create 2 New Subnets  
 	* When assigning Availability Zones there are no specific zones that need to be selected, however the zone for Subnet 1 must be different than the zone for Subnet 2.
 	* Do not forget to document subnet-IDs!
-	
-	Specifications - Subnet 1:  
 	* VPC: New VPC created above
 	* IPv4 CIDR Block: 10.0.0.0/20
 	* Assign Availabily Zone
 	* Enable Auto-assign public IPv4 addresses
 
-	Specifications - Subnet 2:  
-
-	* VPC: New VPC created above
-	* IPv4 CIDR Block: 10.0.16.0/20
-	* Assign Availabily Zone
-	* Enable Auto-assign public IPv4 addresses
-
 * Create new Network Access Control List  
-Specifications:
-   	* VPC: New VPC created above
+	* VPC: New VPC created above
 	* Subnets: Both new Subnets created above
 	* Rules:
 		* for both inbound and outbound:
@@ -56,11 +45,9 @@ Specifications:
 		* Please see "Known Issues" for justification for the excessive permissiveness
 
 * Create new Internet Gateway  
-Specifications:  
 	* VPC: New VPC created above
 
 * Create New Route Table  
-Specifications:
 	* Subnet Associations: Both new Subnets created above
 	* Routes:  
 	
@@ -70,11 +57,9 @@ Specifications:
 		* Please see "Known Issues" for justification for the excessive permissiveness
 
 * Create New Security Group  
-	* Note down the security group ID  
-
-Specifications:
+	* Note down the security group ID
 	* VPC: New VPC created above
-	* Rules:  
+	* Rules:
 
 		* For both inbound and outbound
 
@@ -94,14 +79,12 @@ Specifications:
 		| ------------- | ------------- | ------------- | ------------- |
 		| ALL traffic | ALL | ALL | ::/0 |
 
-* Create New IAM role  
-Specifications:  
+* Create New IAM role   
 	* Name: Ansible
 	* Service Role: EC2
 	* Permissions: Poweruser
 
 * Create New IAM User  
-Specifications:
 	* Name:  Ansible
 	* Access Type: Programatic
 	* Permissions: Poweruser (from existing policies)
