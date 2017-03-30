@@ -118,8 +118,10 @@ VPC setup:
 		ssh-agent bash
 		ssh-add ~/.ssh/{name_of_new_key}.pem
 		sudo chmod +x /etc/ansible/ec2.py
-		export AWS_ACCESS_KEY_ID='{Access_Key_for_AIM_user}'
-		export AWS_SECRET_ACCESS_KEY='{Secret_Key_for_AIM_user}'
+		export AWS_ACCESS_KEY_ID='Access_Key'
+			* replace Access_Key with the one noted earlier
+		export AWS_SECRET_ACCESS_KEY='{Secret_Key}'
+			* replace Secret_Key with the one noted earlier
 		export ANSIBLE_HOSTS=/etc/ansible/ec2.py
 		cd /etc/ansible
 		ansible all -m ping
