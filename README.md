@@ -28,21 +28,26 @@ Specifications:
 	* IPv4 CIDR block: 10.0.0.0/16  
 	* Enable DNS hostnames  
 * Create 2 New Subnets  
-    * When assigning Availability Zones there are no specific zones that need to be selected, however the zone for Subnet 1 must be different than the zone for Subnet 2.
+	* When assigning Availability Zones there are no specific zones that need to be selected, however the zone for Subnet 1 must be different than the zone for Subnet 2.
+	* Do not forget to document subnet-IDs!
+	
+	Specifications - Subnet 1:  
+	* VPC: New VPC created above
+	* IPv4 CIDR Block: 10.0.0.0/20
+	* Assign Availabily Zone
+	* Enable Auto-assign public IPv4 addresses
 
-Specifications - Subnet 1:  
+	Specifications - Subnet 2:  
 
-    * Attach to the new VPC
-    * Use 10.0.0.0/20 for IPv4 CIDR block on the first
-    * Use 10.0.16.0/20 for IPv4 CIDR block on the second
-    * Assign them to different availability zones
-    * Ensure they auto-assign public IPv4 addresses 
-        * you may need to change this in subnet actions
-    * Note down the subnet ids
+	* VPC: New VPC created above
+	* IPv4 CIDR Block: 10.0.16.0/20
+	* Assign Availabily Zone
+	* Enable Auto-assign public IPv4 addresses
+
 * Create new Network Access Control List
-    * Connect it to the new VPC
-    * Connect both subnets to new NACL
-    * Set the rules:
+   	* Connect it to the new VPC
+	* Connect both subnets to new NACL
+	* Set the rules:
       * for both inbound and outbound:
 
       | Rule #  | Type | Protocol | Port Range | Source/Destination | Allow/Deny |
