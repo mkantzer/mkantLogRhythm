@@ -171,15 +171,17 @@ Please note that you should re-start whichever is down before stopping the other
 This project uses Ansible v2.2.2.0, hosted in Amazon Cloud Services, to deploy two GlusterFS nodes, configure them into a cluster, configure and launch a redunant volume on that cluster, and then mount that volume on two clients.
 The networking configuration places one node and one client on each of two sub-nets, which are hosted in different availability zones for increased reliability; if one availabilty zone goes down, the other is still accessable. 
 
-Tool Choices:
+Using two GlusterFS nodes with "replica 2" set on them achieves the single-fault-tolerent requirement; either one can be lost without losing any data. 
 
+
+
+Tool Choices:
   * AWS was chosen for speed, ease of use, familiarity, and ability to integrate automation easily.
   * Ansible was chosen because of its notabel ease of use, speed of development, use of Python and YAML syntax, and wide variety of built-in modules ("batteries included"). This extended all the way down to a glusterFS volume management module. Additionally, it was extreemly easy to connect to AWS for dynamic inventory management. Finally, ansible is known for its idempotency, which I have done my best to maintain; it checks for the current status before making changes, only when they are required to return a system to the desired configuration.  
 	
 
 
 ## Known Issues and Breachs of Best Practices
-
 
   * The IAM role used by Ansible has a larger amount of permissions than strictly required. It would be better to limit these to the minimum required. 
   * My AWS permissions are extreemly loose, especially in the Network Access Control Lists, route tables, and the Security Groups. These should be locked down much further, allowing conenctions to and from only the IP addresses that require them, and restriciting traffic types. However, for this proof of concept, flexability was considered more important than direct security, as no data would actually be housed wihtin the servers.
@@ -195,3 +197,4 @@ Tool Choices:
 ## Potential Improvements
 
   * Deploy the Ansible Master from a pre-configured snapshot/AMI. This was not done for the current implementation because of sharing requirements. 
+  * This solution only has 2 nodes connected to the replicated volume. In a produciton environment, it would be best to use 3 (spread between 3 availability zones) for increased redundency/ 
