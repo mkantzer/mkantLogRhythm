@@ -122,6 +122,8 @@ VPC setup:
 		cd /etc/ansible
 		ansible all -m ping
 			* This should return a green success (and sometimes a purple warning)
+		```
+		
 	4. Edit environmental variables:
 
 		` vi group_vars/all`
@@ -133,8 +135,7 @@ VPC setup:
 		| AWSregion | Region name. This should be us-east-1 |
 		| AWSvpc_subnet_id | IDs for subnets created earlier |
 		| AWSimage_id | Image to use in deploying instances. Please use ami-49c9295f unless it was unavailable earlier; solution is configured for ubuntu 14.04 |
-		
-		
+				
 Note: If you ever disconnect from your SSH session, you will need to re-initialize:
 
 ```
