@@ -25,4 +25,4 @@
     fstype: glusterfs
     state: mounted
     opts: 
-      - backupvolfile-server: "{{ glusterServer[1] }}"
+      - backupvolfile-server="{{ glusterServer[1] }}"
