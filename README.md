@@ -41,7 +41,8 @@ Specifications:
 	* Assign Availabily Zone
 	* Enable Auto-assign public IPv4 addresses
 
-* Create new Network Access Control List
+* Create new Network Access Control List  
+Specifications:
    	* Connect it to the new VPC
 	* Connect both subnets to new NACL
 	* Set the rules:
@@ -200,7 +201,7 @@ Tool Choices:
   * My AWS permissions are extremely loose, especially in the Network Access Control Lists, route tables, and the Security Groups. These should be locked down much further, allowing connections to and from only the IP addresses that require them, and restricting traffic types. However, for this proof of concept, flexibility was considered more important than direct security, as no data would actually be housed within the servers.
   * Boto is currently receiving access keys via environment variables. While this does work, there are cleaner and more permanant ways to accomplish this (namely via roles)
   * Source control/playbooks/scripts are all stored in etc/ansible. This is so that I could correctly manage the .cfg and .ini files, as well as proving a central place to hold everything. 
-  * There is a 30 second pause in the middle of execution to allow boto/ec2.py to re-cache the inventory. This, in conjunction with decreasing the ec2.ini value for the time to keep a cahce to 25 seconds (from 300) is an in-elegent solution to the problem of re-initalizing the cache after adding new instances, as well as allowing for enough time for them to become avaialable. A better solution would most likely be along the lines of a looping structure that exits when it detects the new instances (or after a set time)
+  * There is a 30 second pause in the middle of execution to allow Boto/ec2.py to re-cache the inventory. This, in conjunction with decreasing the ec2.ini value for the time to keep a cahce to 25 seconds (from 300) is an in-elegent solution to the problem of re-initalizing the cache after adding new instances, as well as allowing for enough time for them to become avaialable. A better solution would most likely be along the lines of a looping structure that exits when it detects the new instances (or after a set time)
   * If a Cluster node fails (for example, is terminated from the AWS console), re-runnign the playbook does not add a new node to the cluster. 
   * ignore_errors has been set to true when creating the gluster volume. This is due to a bug in the module, where it attempts to execute "gluster volume add-brick" against each server in the cluster, when it only needs to execute against a single one. As a result, on the second node, it tries to add a brick that is already added, and runs into an error. The volume was still created, however, so I am treating this as a success condition. Please note that this occurs even though I have flagged run_once in the task, so that it still only runs the command on a single server. 
   * Security has not been configured on GlusterFS; anyone can currently mount the volume if they know where to point. This is because of the previously mentioned bug in the gluster_volume module
