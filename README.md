@@ -25,7 +25,7 @@ If you have any questions on a step, please feel free to contact me.
 AWS Configuration
 * Create New VPC  
 Specifications:  
-  * Use 10.0.0.0/16 for IPv4 CIDR block  
+  * IPv4 CIDR block: 10.0.0.0/16  
   * Enable DNS hostnames  
 * Create 2 New Subnets  
 Specifications - Subnet 1:  
@@ -41,12 +41,12 @@ Specifications - Subnet 1:
     * Connect both subnets to new NACL
     * Set the rules:
       * for both inbound and outbound:
-	
+
       | Rule #  | Type | Protocol | Port Range | Source/Destination | Allow/Deny |
       | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
       | 100 | ALL Traffic | ALL | ALL | 0.0.0.0/0 | ALLOW |
       | * | ALL Traffic | ALL | ALL | 0.0.0.0/0 | DENY |
-		
+
       * Please see Known Issues for justification for the excessive permissiveness
 * Create new Internet Gateway
     * Attach it to the new VPC
@@ -58,18 +58,18 @@ Specifications - Subnet 1:
     * Associate it with the new VPC
     * Note down the security group ID  
     * Set the rules: 
-	* For both inbound and outbound
+    * For both inbound and outbound
 
-	| Type  | Protocol | Port Range | Source |
-	| ------------- | ------------- | ------------- | ------------- |
-	| SSH | TCP | 22 | 0.0.0.0/0 |
-	| SSH | TCP | 22 | ::/0 |
-	| HTTP | TCP | 80 | 0.0.0.0/0 |
-	| HTTP | TCP | 80 | ::/0 |
-	| HTTPS | TCP | 443 | 0.0.0.0/0 |
-	| HTTPS | TCP | 443 | ::/0 |
-	| ALL traffic | ALL | ALL | {id for this security group} |
-	* Outbound should have an additional:
+    | Type  | Protocol | Port Range | Source |
+    | ------------- | ------------- | ------------- | ------------- |
+    | SSH | TCP | 22 | 0.0.0.0/0 |
+    | SSH | TCP | 22 | ::/0 |
+    | HTTP | TCP | 80 | 0.0.0.0/0 |
+    | HTTP | TCP | 80 | ::/0 |
+    | HTTPS | TCP | 443 | 0.0.0.0/0 |
+    | HTTPS | TCP | 443 | ::/0 |
+    | ALL traffic | ALL | ALL | {id for this security group} |
+    * Outbound should have an additional:
 		
 	| Type  | Protocol | Port Range | Source |
 	| ------------- | ------------- | ------------- | ------------- |
