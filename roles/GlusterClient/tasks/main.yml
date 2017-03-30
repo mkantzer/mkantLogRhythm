@@ -26,4 +26,3 @@
     state: mounted
     opts: 
       - backupvolfile-server: "{{ glusterServer[1] }}"
-      - auth.allow: "{{ glusterClients[0] }},{{ glusterClients[1] }}"
