@@ -5,7 +5,7 @@ This codebase was created for Michael Kantzer's evaluation with LogRhythm. The t
 These requirements have been met with the use of:
   * Amazon Web Services for infrastructure
   * Ansible for automation
-## Requirements Before Begininng
+## Requirements Before Beginning
 
 This solution is built to run on Amazon Web Services. As such, an AWS account is required. Due to the relatively small nature of the solution, it should stay within the allotment for Free Teir usage. However, leaving multiple instances running past the end of the demonstration will exceed this limit, and could incur costs. Please be sure to clean up your environment after the evaluation. 
 
