@@ -50,13 +50,13 @@ Solution Description
 
 
 
-   * bullited
-   * list
-   * of
-   * things
-   `to mark it as a box`
-    [releases.ansible.com](https://releases.ansible.com/ansible)
-
+ * bullited
+ * list
+ * of
+ * things
+ `to mark it as a box`
+  [releases.ansible.com](https://releases.ansible.com/ansible)
+ 
 Execution
 ===========
 
@@ -65,7 +65,8 @@ Known Issues and Breachs of Best Practices
 =======
 	
 
-	* if a Cluster node fails (for example, is terminated from the AWS console), re-runnign the playbook does not add a new node to the cluster. 
+  * if a Cluster node fails (for example, is terminated from the AWS console), re-runnign the playbook does not add a new node to the cluster. 
+  * Security has not been configured on GlusterFS; anyone can currently mount 
 
 
 Potential Improvements
