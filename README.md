@@ -166,7 +166,7 @@ cd /etc/ansible
 		
 ## Execution
 
-At this point, we are fully configured, and are ready to execute the deployment playbook:
+Following Initial Setup, the environment is fully configured, and is ready to execute the deployment playbook:
 
 `ansible-playbook master.yml`
 
