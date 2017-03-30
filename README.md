@@ -28,17 +28,15 @@ If you have any questions on a step, please feel free to contact me.
 Installation
 ============
 
-PLEASE NOTE: Full deployment must occur within the us-east-1 (N. Virginia) AWS region due to resource availability. 
+**PLEASE NOTE: Full deployment must occur within the us-east-1 (N. Virginia) AWS region ** due to resource availability. 
 
 VPC setup:
 1. Create New VPC
-
-..1. 10.0.0.0/16 for IPv4 CIDR block
-
-..2. enable DNS hostnames
+  1. 10.0.0.0/16 for IPv4 CIDR block
+  2. enable DNS hostnames
 
 2. Create Subnets
-..1. 
+  1. 
 
 
 
