@@ -18,38 +18,44 @@ Setup assumes knowledge of the AWS webconsole, proficiency with command line, an
 If you have any questions on a step, please feel free to contact me. 
 
 
-## Installation
+## Initial Setup 
 
 **PLEASE NOTE: Full deployment must occur within the us-east-1 (N. Virginia) AWS region** due to resource availability. 
 
-VPC setup:
-1. Create New VPC
-    1. 10.0.0.0/16 for IPv4 CIDR block
-    2. Enable DNS hostnames
-2. Create 2 Subnets
-	1. Attach to the new VPC
-	2. 10.0.0.0/20 for IPv4 CIDR block on the first
-	3. 10.0.16.0/20 for IPv4 CIDR block on the second
-	4. Assign them to different availability zones
-	5. Ensure they auto-assign public IPv4 addresses 
+AWS Configuration
+* Create New VPC
+    * Use 10.0.0.0/16 for IPv4 CIDR block
+    * Enable DNS hostnames
+* Create 2 New Subnets
+	* Attach to the new VPC
+	* Use 10.0.0.0/20 for IPv4 CIDR block on the first
+	* Use 10.0.16.0/20 for IPv4 CIDR block on the second
+	* Assign them to different availability zones
+	* Ensure they auto-assign public IPv4 addresses 
 		* you may need to change this in subnet actions
-	6. Note down the subnet ids
-3. Network Access Control Lists
-	1. Create new NACL, and connect it to the new VPC
-	2. Make sure both subnets are connected to the new NACL
-	3. Set the rules:
-		* for both inbound and outbound, create a new rule, number 100, for all traffic types, from all protocols, on all port ranges, for source 0.0.0.0/0, set to ALLOW
+	* Note down the subnet ids
+* Create new Network Access Control List
+	* Connect it to the new VPC
+	* Connect both subnets to new NACL
+	* Set the rules:
+		* for both inbound and outbound:
+		
+		| Rule #  | Type | Protocol | Port Range | Source/Destination | Allow/Deny |
+		| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
+		| 100 | ALL Traffic | ALL | ALL | 0.0.0.0/0 | ALLOW |
+		| * | ALL Traffic | ALL | ALL | 0.0.0.0/0 | DENY |
+		
 		* Please see Known Issues for justification for the excessive permissiveness
-4. Create Internet Gateway
+* Create new Internet Gateway
 	* Attach it to the new VPC
-5. Create Route Table
-	1. Connect both new subnets to the table
-	2. Under routes, add 0.0.0.0/0 and your IGW name
+* Create New Route Table
+	* Connect both new subnets to the table
+	* Under routes, add 0.0.0.0/0 and your IGW name
 		* Please see Known Issues for justification for the excessive permissiveness
-6. Create Security Group
-	1. Associate it with the new VPC
-	2. Note down the security group ID  
-	3. Rules: 
+* Create New Security Group
+	* Associate it with the new VPC
+	* Note down the security group ID  
+	* Set the rules: 
 		* For both inbound and outbound
 
 		| Type  | Protocol | Port Range | Source |
@@ -67,78 +73,77 @@ VPC setup:
 		| ------------- | ------------- | ------------- | ------------- |
 		| ALL traffic | ALL | ALL | ::/0 |
 
-7. Create IAM role
-	* Named Ansible
-	* EC2 service role
+* Create New IAM role
+	* Name it Ansible
+	* Select EC2 service role
 	* Grant Poweruser Access
-8. Create IAM User
+* Create New IAM User
 	* Named Ansible
-	* Programatic Access
-	* Poweruser Permissions (from existing policies)
+	* Select Programatic Access
+	* Grant Poweruser Permissions (from existing policies)
 	* **Make sure you note both the Access Key ID and the Secret Key for later use**
-9. Create new Key Pair
+* Create New Key Pair
 	* **Make sure you save the .pem it will download. This will be needed to access all instances created**
 	* Note down name of key
 
-10. Create Ansible Master
-	1. Launch EC2 instance:
-		* free-tier Ubuntu 14.04 LTS, ami-49c9295f 
-			*(if this image is not available, copy new value for later use)
-		* t2.micro
-		* Connected to the new VPC
-		* Auto-assign public IP
-		* IAM Role: Ansible
-		* Shutdown behavior: stop
-		* 8 GB GP2 storage, delete on termination
-			* This should be the standard, and auto-populated
-		* Tag: Name | Ansible
-		* Security group: The new one
-		* When launching, be sure to use the new key pair
-	2. SSH into the EC2 instance, using the downlaoded .pem, and connecting to ubuntu@{public DNS of instance}
-		* If connecting from windows/PuTTY, you may need to use puttygen to convert the .pem to a ppk
-	3. Run the following commands:
-		```
-		sudo apt-get update
-		sudo apt-get -y install git
-		sudo git clone https://github.com/mkantzer/mkantLogRhythm /etc/ansible
-		sudo apt-get -y install software-properties-common
-		sudo apt-add-repository -y ppa:ansible/ansible
-		sudo apt-get update
-		sudo apt-get install -y ansible
-			* You may be prompted about repeated files. if so, keep current. 
-			* I have made changes to some cfg files. 
-			* Use option 'N'
-		sudo apt-get install -y python-pip
-		sudo pip install -U boto
-		touch ~/.ssh/{name_of_new_key}.pem
-		chmod 700 ~/.ssh/{name_of_new_key}.pem
-		vi ~/.ssh/{name_of_new_key}.pem
-			* Paste contents of your .pem into this file
-			* save with :wq
-		ssh-agent bash
-		ssh-add ~/.ssh/{name_of_new_key}.pem
-		sudo chmod +x /etc/ansible/ec2.py
-		export AWS_ACCESS_KEY_ID='Access_Key'
-			* replace Access_Key with the one noted earlier
-		export AWS_SECRET_ACCESS_KEY='Secret_Key'
-			* replace Secret_Key with the one noted earlier
-		export ANSIBLE_HOSTS=/etc/ansible/ec2.py
-		cd /etc/ansible
-		ansible all -m ping
-			* This should return a green success (and sometimes a purple warning)
-		```
+* Create New EC2 instance for Ansible
+	* Select free-tier Ubuntu 14.04 LTS, ami-49c9295f 
+		*(if this image is not available, copy new value for later use)
+	* Select t2.micro
+	* Select the new VPC
+	* Select Auto-assign public IP
+	* Select IAM Role: Ansible
+	* Select Shutdown behavior: stop
+	* Select 8 GB GP2 storage, delete on termination
+		* This should be the standard, and auto-populated
+	* Enter Tag: Name | Ansible
+	* Select the new Security group
+	* Select the new key pair when launching
+* SSH into the EC2 instance, using the downlaoded .pem, and connecting to ubuntu@{public DNS of instance}
+	* If connecting from windows/PuTTY, you may need to use puttygen to convert the .pem to a ppk
+*Run the following commands:
+	```
+	sudo apt-get update
+	sudo apt-get -y install git
+	sudo git clone https://github.com/mkantzer/mkantLogRhythm /etc/ansible
+	sudo apt-get -y install software-properties-common
+	sudo apt-add-repository -y ppa:ansible/ansible
+	sudo apt-get update
+	sudo apt-get install -y ansible
+		* You may be prompted about repeated files. if so, keep current. 
+		* I have made changes to some cfg files. 
+		* Use option 'N'
+	sudo apt-get install -y python-pip
+	sudo pip install -U boto
+	touch ~/.ssh/{name_of_new_key}.pem
+	chmod 700 ~/.ssh/{name_of_new_key}.pem
+	vi ~/.ssh/{name_of_new_key}.pem
+		* Paste contents of your .pem into this file
+		* save with :wq
+	ssh-agent bash
+	ssh-add ~/.ssh/{name_of_new_key}.pem
+	sudo chmod +x /etc/ansible/ec2.py
+	export AWS_ACCESS_KEY_ID='Access_Key'
+		* replace Access_Key with the one noted earlier
+	export AWS_SECRET_ACCESS_KEY='Secret_Key'
+		* replace Secret_Key with the one noted earlier
+	export ANSIBLE_HOSTS=/etc/ansible/ec2.py
+	cd /etc/ansible
+	ansible all -m ping
+		* This should return a green success (and sometimes a purple warning)
+	```
 		
-	4. Edit environmental variables:
+4. Edit environmental variables:
 
-		`sudo vi group_vars/all`
+	`sudo vi group_vars/all`
 		
-		| Variable | Use |
-		| --- | --- |
-		| AWSkey_name | Key pair name created earlier, used in deploying and accessing instances |
-		| AWSgroup_id | Security Group ID |
-		| AWSregion | Region name. This should be us-east-1 |
-		| AWSvpc_subnet_id | IDs for subnets created earlier |
-		| AWSimage_id | Image to use in deploying instances. Please use ami-49c9295f unless it was unavailable earlier; solution is configured for ubuntu 14.04 |
+	| Variable | Use |
+	| --- | --- |
+	| AWSkey_name | Key pair name created earlier, used in deploying and accessing instances |
+	| AWSgroup_id | Security Group ID |
+	| AWSregion | Region name. This should be us-east-1 |
+	| AWSvpc_subnet_id | IDs for subnets created earlier |
+	| AWSimage_id | Image to use in deploying instances. Please use ami-49c9295f unless it was unavailable earlier; solution is configured for ubuntu 14.04 |
 				
 Note: If you ever disconnect from your SSH session, you will need to re-initialize:
 
