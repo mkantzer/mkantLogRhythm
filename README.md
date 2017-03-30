@@ -1,16 +1,11 @@
 # mkantLogRhythm
 
 ## Introduction
-
 This codebase was created for Michael Kantzer's evaluation with LogRhythm. The task was to automate the creation of a GlusterFS storage cluster with single node failure fault tolerance, with no data loss. Automation should start with the entry of a single command, and should use modern tools appropriate for the task
-
 These requirements have been met with the use of:
-
   * Amazon Web Services for infrastructure
   * Ansible for automation
-
-
-##Requirements Before Begininng
+## Requirements Before Begininng
 
 This solution is built to run on Amazon Web Services. As such, an AWS account is required. Due to the relatively small nature of the solution, it should stay within the allotment for Free Teir usage. However, leaving multiple instances running past the end of the demonstration will exceed this limit, and could incur costs. Please be sure to clean up your environment after the evaluation. 
 
