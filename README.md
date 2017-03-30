@@ -71,11 +71,10 @@ Specifications:
 
 * Create New Security Group  
 	* Note down the security group ID  
-	
-Specifications:
-
+Specifications:  
 	* VPC: New VPC created above
 	* Rules: 
+
 		* For both inbound and outbound
 
 		| Type  | Protocol | Port Range | Source |
