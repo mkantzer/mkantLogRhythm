@@ -121,7 +121,7 @@ VPC setup:
 		export ANSIBLE_HOSTS=/etc/ansible/ec2.py
 		cd /etc/ansible
 		ansible all -m ping
-			-This should return a green success (and sometimes a purple warning)
+			* This should return a green success (and sometimes a purple warning)
 	4. Edit environmental variables:
 
 		` vi group_vars/all`
@@ -134,9 +134,24 @@ VPC setup:
 		| AWSvpc_subnet_id | IDs for subnets created earlier |
 		| AWSimage_id | Image to use in deploying instances. Please use ami-49c9295f unless it was unavailable earlier; solution is configured for ubuntu 14.04 |
 		
+		
+Note: If you ever disconnect from your SSH session, you will need to re-initialize:
+
+```
+ssh-agent bash 
+ssh-add ~/.ssh/{key name}.pem 
+export AWS_ACCESS_KEY_ID='{key}' 
+export AWS_SECRET_ACCESS_KEY='{secret}' 
+export ANSIBLE_HOSTS=/etc/ansible/ec2.py
+```		
+		
 ## Execution
 
 
+
+
+
+## Verification
 
 
 
