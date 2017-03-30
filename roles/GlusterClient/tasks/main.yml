@@ -24,5 +24,4 @@
     src: "{{glusterServer[0]}}:/gv0"
     fstype: glusterfs
     state: mounted
-    opts: 
-      - backupvolfile-server="{{ glusterServer[1] }}"
+    opts: backupvolfile-server="{{ glusterServer[1] }}"
