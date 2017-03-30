@@ -27,113 +27,113 @@ AWS Configuration
     * Use 10.0.0.0/16 for IPv4 CIDR block
     * Enable DNS hostnames
 * Create 2 New Subnets
-	* Attach to the new VPC
-	* Use 10.0.0.0/20 for IPv4 CIDR block on the first
-	* Use 10.0.16.0/20 for IPv4 CIDR block on the second
-	* Assign them to different availability zones
-	* Ensure they auto-assign public IPv4 addresses 
-		* you may need to change this in subnet actions
-	* Note down the subnet ids
+    * Attach to the new VPC
+    * Use 10.0.0.0/20 for IPv4 CIDR block on the first
+    * Use 10.0.16.0/20 for IPv4 CIDR block on the second
+    * Assign them to different availability zones
+    * Ensure they auto-assign public IPv4 addresses 
+        * you may need to change this in subnet actions
+    * Note down the subnet ids
 * Create new Network Access Control List
-	* Connect it to the new VPC
-	* Connect both subnets to new NACL
-	* Set the rules:
-		* for both inbound and outbound:
+    * Connect it to the new VPC
+    * Connect both subnets to new NACL
+    * Set the rules:
+	* for both inbound and outbound:
+	
+	| Rule #  | Type | Protocol | Port Range | Source/Destination | Allow/Deny |
+	| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
+	| 100 | ALL Traffic | ALL | ALL | 0.0.0.0/0 | ALLOW |
+	| * | ALL Traffic | ALL | ALL | 0.0.0.0/0 | DENY |
 		
-		| Rule #  | Type | Protocol | Port Range | Source/Destination | Allow/Deny |
-		| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-		| 100 | ALL Traffic | ALL | ALL | 0.0.0.0/0 | ALLOW |
-		| * | ALL Traffic | ALL | ALL | 0.0.0.0/0 | DENY |
-		
-		* Please see Known Issues for justification for the excessive permissiveness
+	* Please see Known Issues for justification for the excessive permissiveness
 * Create new Internet Gateway
-	* Attach it to the new VPC
+    * Attach it to the new VPC
 * Create New Route Table
-	* Connect both new subnets to the table
-	* Under routes, add 0.0.0.0/0 and your IGW name
-		* Please see Known Issues for justification for the excessive permissiveness
+    * Connect both new subnets to the table
+    * Under routes, add 0.0.0.0/0 and your IGW name
+    	* Please see Known Issues for justification for the excessive permissiveness
 * Create New Security Group
-	* Associate it with the new VPC
-	* Note down the security group ID  
-	* Set the rules: 
-		* For both inbound and outbound
+    * Associate it with the new VPC
+    * Note down the security group ID  
+    * Set the rules: 
+	* For both inbound and outbound
 
-		| Type  | Protocol | Port Range | Source |
-		| ------------- | ------------- | ------------- | ------------- |
-		| SSH | TCP | 22 | 0.0.0.0/0 |
-		| SSH | TCP | 22 | ::/0 |
-		| HTTP | TCP | 80 | 0.0.0.0/0 |
-		| HTTP | TCP | 80 | ::/0 |
-		| HTTPS | TCP | 443 | 0.0.0.0/0 |
-		| HTTPS | TCP | 443 | ::/0 |
-		| ALL traffic | ALL | ALL | {id for this security group} |
-		* Outbound should have an additional:
+	| Type  | Protocol | Port Range | Source |
+	| ------------- | ------------- | ------------- | ------------- |
+	| SSH | TCP | 22 | 0.0.0.0/0 |
+	| SSH | TCP | 22 | ::/0 |
+	| HTTP | TCP | 80 | 0.0.0.0/0 |
+	| HTTP | TCP | 80 | ::/0 |
+	| HTTPS | TCP | 443 | 0.0.0.0/0 |
+	| HTTPS | TCP | 443 | ::/0 |
+	| ALL traffic | ALL | ALL | {id for this security group} |
+	* Outbound should have an additional:
 		
-		| Type  | Protocol | Port Range | Source |
-		| ------------- | ------------- | ------------- | ------------- |
-		| ALL traffic | ALL | ALL | ::/0 |
+	| Type  | Protocol | Port Range | Source |
+	| ------------- | ------------- | ------------- | ------------- |
+	| ALL traffic | ALL | ALL | ::/0 |
 
 * Create New IAM role
-	* Name it Ansible
-	* Select EC2 service role
-	* Grant Poweruser Access
+* Name it Ansible
+    * Select EC2 service role
+    * Grant Poweruser Access
 * Create New IAM User
-	* Named Ansible
-	* Select Programatic Access
-	* Grant Poweruser Permissions (from existing policies)
-	* **Make sure you note both the Access Key ID and the Secret Key for later use**
+    * Named Ansible
+    * Select Programatic Access
+    * Grant Poweruser Permissions (from existing policies)
+    * **Make sure you note both the Access Key ID and the Secret Key for later use**
 * Create New Key Pair
-	* **Make sure you save the .pem it will download. This will be needed to access all instances created**
-	* Note down name of key
+    * **Make sure you save the .pem it will download. This will be needed to access all instances created**
+    * Note down name of key
 
 * Create New EC2 instance for Ansible
-	* Select free-tier Ubuntu 14.04 LTS, ami-49c9295f 
-		*(if this image is not available, copy new value for later use)
-	* Select t2.micro
-	* Select the new VPC
-	* Select Auto-assign public IP
-	* Select IAM Role: Ansible
-	* Select Shutdown behavior: stop
-	* Select 8 GB GP2 storage, delete on termination
-		* This should be the standard, and auto-populated
-	* Enter Tag: Name | Ansible
-	* Select the new Security group
-	* Select the new key pair when launching
+    * Select free-tier Ubuntu 14.04 LTS, ami-49c9295f 
+    	*(if this image is not available, copy new value for later use)
+    * Select t2.micro
+    * Select the new VPC
+    * Select Auto-assign public IP
+    * Select IAM Role: Ansible
+    * Select Shutdown behavior: stop
+    * Select 8 GB GP2 storage, delete on termination
+    	* This should be the standard, and auto-populated
+    * Enter Tag: Name | Ansible
+    * Select the new Security group
+    * Select the new key pair when launching
 * SSH into the EC2 instance, using the downlaoded .pem, and connecting to ubuntu@{public DNS of instance}
-	* If connecting from windows/PuTTY, you may need to use puttygen to convert the .pem to a ppk
+    * If connecting from windows/PuTTY, you may need to use puttygen to convert the .pem to a ppk
 *Run the following commands:
-	```
-	sudo apt-get update
-	sudo apt-get -y install git
-	sudo git clone https://github.com/mkantzer/mkantLogRhythm /etc/ansible
-	sudo apt-get -y install software-properties-common
-	sudo apt-add-repository -y ppa:ansible/ansible
-	sudo apt-get update
-	sudo apt-get install -y ansible
-		* You may be prompted about repeated files. if so, keep current. 
-		* I have made changes to some cfg files. 
-		* Use option 'N'
-	sudo apt-get install -y python-pip
-	sudo pip install -U boto
-	touch ~/.ssh/{name_of_new_key}.pem
-	chmod 700 ~/.ssh/{name_of_new_key}.pem
-	vi ~/.ssh/{name_of_new_key}.pem
-		* Paste contents of your .pem into this file
-		* save with :wq
-	ssh-agent bash
-	ssh-add ~/.ssh/{name_of_new_key}.pem
-	sudo chmod +x /etc/ansible/ec2.py
-	export AWS_ACCESS_KEY_ID='Access_Key'
-		* replace Access_Key with the one noted earlier
-	export AWS_SECRET_ACCESS_KEY='Secret_Key'
-		* replace Secret_Key with the one noted earlier
-	export ANSIBLE_HOSTS=/etc/ansible/ec2.py
-	cd /etc/ansible
-	ansible all -m ping
-		* This should return a green success (and sometimes a purple warning)
-	```
+    ```
+    sudo apt-get update
+    sudo apt-get -y install git
+    sudo git clone https://github.com/mkantzer/mkantLogRhythm /etc/ansible
+    sudo apt-get -y install software-properties-common
+    sudo apt-add-repository -y ppa:ansible/ansible
+    sudo apt-get update
+    sudo apt-get install -y ansible
+        * You may be prompted about repeated files. if so, keep current. 
+        * I have made changes to some cfg files. 
+        * Use option 'N'
+    sudo apt-get install -y python-pip
+    sudo pip install -U boto
+    touch ~/.ssh/{name_of_new_key}.pem
+    chmod 700 ~/.ssh/{name_of_new_key}.pem
+    vi ~/.ssh/{name_of_new_key}.pem
+    	* Paste contents of your .pem into this file
+    	* save with :wq
+    ssh-agent bash
+    ssh-add ~/.ssh/{name_of_new_key}.pem
+    sudo chmod +x /etc/ansible/ec2.py
+    export AWS_ACCESS_KEY_ID='Access_Key'
+    	* replace Access_Key with the one noted earlier
+    export AWS_SECRET_ACCESS_KEY='Secret_Key'
+    	* replace Secret_Key with the one noted earlier
+    export ANSIBLE_HOSTS=/etc/ansible/ec2.py
+    cd /etc/ansible
+    ansible all -m ping
+    	* This should return a green success (and sometimes a purple warning)
+    ```
 		
-4. Edit environmental variables:
+* Edit environmental variables:
 
 	`sudo vi group_vars/all`
 		
