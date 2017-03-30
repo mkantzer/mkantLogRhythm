@@ -41,14 +41,15 @@ VPC setup:
 		* for both inbound and outbound, create a new rule, number 100, for all traffic types, from all protocols, on all port ranges, for source 0.0.0.0/0, set to ALLOW
 		* Please see Known Issues for justification for the excessive permissiveness
 4. Create Internet Gateway
-	* attach it to the new VPC
+	* Attach it to the new VPC
 5. Create Route Table
 	1. Connect both new subnets to the table
 	2. Under routes, add 0.0.0.0/0 and your IGW name
 		* Please see Known Issues for justification for the excessive permissiveness
 6. Create Security Group
 	1. Associate it with the new VPC
-	2. Rules: 
+	2. Note down the security group ID  
+	3. Rules: 
 		* For both inbound and outbound
 
 		| Type  | Protocol | Port Range | Source |
@@ -68,11 +69,12 @@ VPC setup:
 
 7. Create IAM role
 	* Named Ansible
+	* EC2 service role
 	* Grant Poweruser Access
 8. Create IAM User
 	* Named Ansible
 	* Programatic Access
-	* Poweruser Permissions
+	* Poweruser Permissions (from existing policies)
 	* **Make sure you note both the Access Key ID and the Secret Key for later use**
 9. Create new Key Pair
 	* **Make sure you save the .pem it will download. This will be needed to access all instances created**
