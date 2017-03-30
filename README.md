@@ -27,7 +27,7 @@ VPC setup:
     1. 10.0.0.0/16 for IPv4 CIDR block
     2. Enable DNS hostnames
 2. Create 2 Subnets
-	1. Attached to the new VPC
+	1. Attach to the new VPC
 	2. 10.0.0.0/20 for IPv4 CIDR block on the first
 	3. 10.0.16.0/20 for IPv4 CIDR block on the second
 	4. Assign them to different availability zones
