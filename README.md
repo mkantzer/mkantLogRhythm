@@ -69,36 +69,43 @@ Specifications:
 		| 0.0.0.0/0 | {New IGW-ID}
 		* Please see "Known Issues" for justification for the excessive permissiveness
 
-* Create New Security Group
-    * Associate it with the new VPC
-    * Note down the security group ID  
-    * Set the rules: 
-    * For both inbound and outbound
+* Create New Security Group  
+	* Note down the security group ID  
+	
+Specifications:  
 
-    | Type  | Protocol | Port Range | Source |
-    | ------------- | ------------- | ------------- | ------------- |
-    | SSH | TCP | 22 | 0.0.0.0/0 |
-    | SSH | TCP | 22 | ::/0 |
-    | HTTP | TCP | 80 | 0.0.0.0/0 |
-    | HTTP | TCP | 80 | ::/0 |
-    | HTTPS | TCP | 443 | 0.0.0.0/0 |
-    | HTTPS | TCP | 443 | ::/0 |
-    | ALL traffic | ALL | ALL | {id for this security group} |
-    * Outbound should have an additional:
+	* VPC: New VPC created above
+	* Rules: 
+		* For both inbound and outbound
+
+		| Type  | Protocol | Port Range | Source |
+		| ------------- | ------------- | ------------- | ------------- |
+		| SSH | TCP | 22 | 0.0.0.0/0 |
+		| SSH | TCP | 22 | ::/0 |
+		| HTTP | TCP | 80 | 0.0.0.0/0 |
+		| HTTP | TCP | 80 | ::/0 |
+		| HTTPS | TCP | 443 | 0.0.0.0/0 |
+		| HTTPS | TCP | 443 | ::/0 |
+		| ALL traffic | ALL | ALL | {id for this security group} |
 		
-	| Type  | Protocol | Port Range | Source |
-	| ------------- | ------------- | ------------- | ------------- |
-	| ALL traffic | ALL | ALL | ::/0 |
+		* Outbound should have an additional:
+		
+		| Type  | Protocol | Port Range | Source |
+		| ------------- | ------------- | ------------- | ------------- |
+		| ALL traffic | ALL | ALL | ::/0 |
 
-* Create New IAM role
-* Name it Ansible
-    * Select EC2 service role
-    * Grant Poweruser Access
-* Create New IAM User
-    * Named Ansible
-    * Select Programatic Access
-    * Grant Poweruser Permissions (from existing policies)
-    * **Make sure you note both the Access Key ID and the Secret Key for later use**
+* Create New IAM role  
+Specifications:  
+	* Name: Ansible
+	* Service Role: EC2
+	* Permissions: Poweruser
+
+* Create New IAM User  
+Specifications:
+	* Name:  Ansible
+	* Access Type: Programatic
+	* Permissions: Poweruser (from existing policies)
+	* **Make sure you note both the Access Key ID and the Secret Key for later use**
 * Create New Key Pair
     * **Make sure you save the .pem it will download. This will be needed to access all instances created**
     * Note down name of key
