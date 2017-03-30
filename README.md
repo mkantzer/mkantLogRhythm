@@ -130,7 +130,7 @@ VPC setup:
 		
 	4. Edit environmental variables:
 
-		` vi group_vars/all`
+		`sudo vi group_vars/all`
 		
 		| Variable | Use |
 		| --- | --- |
