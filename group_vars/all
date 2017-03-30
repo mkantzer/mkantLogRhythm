@@ -1,10 +1,9 @@
 --- # environmental variables
 
 
-AWSkey_name: EastLogRhythm
+AWSkey_name: "EastLogRhythm"
 AWSgroup_id: "sg-3d52c742"
 AWSregion: "us-east-1"
-# AWSzone: "us-east-1b"
 AWSvpc_subnet_id: 
     - "subnet-85a4a3de"
     - "subnet-d94e0cbc"
