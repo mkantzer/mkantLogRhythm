@@ -13,7 +13,7 @@ Various components (namely, a disk snapshot that I have created and shared) are 
 
 Additionally, initial environmental setup is required. This is relatively straightforward, and is documented below, under Installation. Please be sure to follow the instructions carefully. 
 
-Setup assumes knowledge of the AWS webconsole, proficiency with command line, and knowlege of how to use ssh tools. 
+Setup assumes knowledge of the AWS webconsole, proficiency with command line, and knowlege of how to use SSH tools. 
 
 If you have any questions on a step, please feel free to contact me. 
 
