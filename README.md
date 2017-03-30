@@ -174,13 +174,8 @@ The networking configuration places one node and one client on each of two sub-n
 Tool Choices:
 
   * AWS was chosen for speed, ease of use, familiarity, and ability to integrate automation easily.
-  * Ansible was chosen because
+  * Ansible was chosen because of its notabel ease of use, speed of development, use of Python and YAML syntax, and wide variety of built-in modules ("batteries included"). This extended all the way down to a glusterFS volume management module. Additionally, it was extreemly easy to connect to AWS for dynamic inventory management. Finally, ansible is known for its idempotency, which I have done my best to maintain; it checks for the current status before making changes, only when they are required to return a system to the desired configuration.  
 	
-
-
-
-
-
 
 
 ## Known Issues and Breachs of Best Practices
