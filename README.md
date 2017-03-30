@@ -25,8 +25,8 @@ If you have any questions on a step, please feel free to contact me.
 AWS Configuration
 * Create New VPC  
 Specifications:  
-    * Use 10.0.0.0/16 for IPv4 CIDR block  
-    * Enable DNS hostnames  
+  * Use 10.0.0.0/16 for IPv4 CIDR block  
+  * Enable DNS hostnames  
 * Create 2 New Subnets  
 Specifications - Subnet 1:  
     * Attach to the new VPC
