@@ -28,6 +28,9 @@ If you have any questions on a step, please feel free to contact me.
 Installation
 ============
 
+Please Note: All setup and exeuction is to be handled in the us-east-1 region (N Virginia), due to required resource availability. 
+
+	1) 
 
 
 

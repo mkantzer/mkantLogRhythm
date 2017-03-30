@@ -25,7 +25,7 @@
   become_method: sudo
   gather_facts: true 
   vars:
-    glusterClients: "{{ groups['tag_Gluster_Client] }}"
+    glusterClients: "{{ groups['tag_Gluster_Client'] }}"
   roles:
   - GlusterCluster
 
