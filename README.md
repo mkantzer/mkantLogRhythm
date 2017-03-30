@@ -48,9 +48,19 @@ VPC setup:
 		* Please see Known Issues for justification for the excessive permissiveness
 6. Create Security Group
 	1. Associate it with the new VPC
-	2. 
-
-
+	2. Rules: 
+		* For both inbound and outbound
+		| Type  | Protocol | Port Range | Source |
+		| ------------- | ------------- | ------------- | ------------- |
+		| SSH | TCP | 22 | 0.0.0.0/0 |
+		| SSH | TCP | 22 | ::/0 |
+		| HTTP | TCP | 80 | 0.0.0.0/0 |
+		| HTTP | TCP | 80 | ::/0 |
+		| HTTPS | TCP | 443 | 0.0.0.0/0 |
+		| HTTPS | TCP | 443 | ::/0 |
+		| ALL traffic | ALL | ALL | {id for this security group} |
+		* Outbound should have an additional:
+		| ALL traffic | ALL | ALL | ::/0 |
 ## Execution
 
 
