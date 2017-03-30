@@ -103,7 +103,9 @@ VPC setup:
 		sudo apt-add-repository -y ppa:ansible/ansible
 		sudo apt-get update
 		sudo apt-get install -y ansible
-			* You may be prompted about repeated files. if so, keep current. I have made changes to some cfg files. use option 'N'
+			* You may be prompted about repeated files. if so, keep current. 
+			* I have made changes to some cfg files. 
+			* Use option 'N'
 		sudo apt-get install -y python-pip
 		sudo pip install -U boto
 		touch ~/.ssh/{name_of_new_key}.pem
@@ -113,18 +115,25 @@ VPC setup:
 			* save with :wq
 		ssh-agent bash
 		ssh-add ~/.ssh/{name_of_new_key}.pem
-		ansible localhost -m ping
-			Ensure you get a purple warning about empty hosts list, followed by a green ping-pong response
 		sudo chmod +x /etc/ansible/ec2.py
-		export AWS_ACCESS_KEY_ID='{ACCESS KEY FROM PERMISSIONS(2)'
-		export AWS_SECRET_ACCESS_KEY='{SECRET KEY FROM PERMISSIONS(2)'
+		export AWS_ACCESS_KEY_ID='{Access_Key_for_AIM_user}'
+		export AWS_SECRET_ACCESS_KEY='{Secret_Key_for_AIM_user}'
 		export ANSIBLE_HOSTS=/etc/ansible/ec2.py
 		cd /etc/ansible
 		ansible all -m ping
-			-If this does not return a green success (and sometimes a purple warning):
-			-edit /etc/ansible/ec2.ini, line 16, to include your region, and only your region. 
-		```
+			-This should return a green success (and sometimes a purple warning)
+	4. Edit environmental variables:
 
+		` vi group_vars/all`
+		
+		| Variable | Use |
+		| --- | --- |
+		| AWSkey_name | Key pair name created earlier, used in deploying and accessing instances |
+		| AWSgroup_id | Security Group ID |
+		| AWSregion | Region name. This should be us-east-1 |
+		| AWSvpc_subnet_id | IDs for subnets created earlier |
+		| AWSimage_id | Image to use in deploying instances. Please use ami-49c9295f unless it was unavailable earlier; solution is configured for ubuntu 14.04 |
+		
 ## Execution
 
 
