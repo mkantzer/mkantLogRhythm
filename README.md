@@ -25,10 +25,13 @@ If you have any questions on a step, please feel free to contact me.
 AWS Configuration
 * Create New VPC  
 Specifications:  
-  * IPv4 CIDR block: 10.0.0.0/16  
-  * Enable DNS hostnames  
+	* IPv4 CIDR block: 10.0.0.0/16  
+	* Enable DNS hostnames  
 * Create 2 New Subnets  
+    * When assigning Availability Zones there are no specific zones that need to be selected, however the zone for Subnet 1 must be different than the zone for Subnet 2.
+
 Specifications - Subnet 1:  
+
     * Attach to the new VPC
     * Use 10.0.0.0/20 for IPv4 CIDR block on the first
     * Use 10.0.16.0/20 for IPv4 CIDR block on the second
