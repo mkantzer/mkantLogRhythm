@@ -143,16 +143,26 @@ ssh-add ~/.ssh/{key name}.pem
 export AWS_ACCESS_KEY_ID='{key}' 
 export AWS_SECRET_ACCESS_KEY='{secret}' 
 export ANSIBLE_HOSTS=/etc/ansible/ec2.py
+cd /etc/ansible
 ```		
 		
 ## Execution
 
+At this point, we are fully configured, and are ready to execute the deployment playbook:
 
+`ansible-playbook master.yml`
 
-
+Allow the playbook to run completely. 
 
 ## Verification
 
+Check your AWS EC2 instances console. There should be 4 new instances, 2 named GlusterCluster and 2 named GlusterClient. 
+
+SSH into the 2 Client machines, navigate to `/mnt/gluster`, and then create a file in one with `sudo touch test.txt`
+Now, `ls` in both, and you should see that file replicated to the second instance.  
+
+You can stop (not terminate) either of the instances labeled GlusterCluster, and the replication will still work. 
+Please note that you should re-start whichever is down before stopping the other one.  
 
 
 
@@ -183,6 +193,7 @@ export ANSIBLE_HOSTS=/etc/ansible/ec2.py
 
   * The IAM role used by Ansible has a larger amount of permissions than strictly required. It would be better to limit these to the minimum required. 
   * My AWS permissions are extreemly loose, especially in the Network Access Control Lists, route tables, and the Security Groups. These should be locked down much further, allowing conenctions to and from only the IP addresses that require them, and restriciting traffic types. However, for this proof of concept, flexability was considered more important than direct security, as no data would actually be housed wihtin the servers.
+  * There is a 30 second pause in the middle of execution to allow boto/ec2.py to re-cache the inventory. This, in conjunction with decreasing the ec2.ini value for the time to keep a cahce to 25 seconds (from 300) is an in-elegent solution to the problem of re-initalizing the cache after adding new instances, as well as allowing for enough time for them to become avaialable. A better solution would most likely be along the lines of a looping structure that exits when it detects the new instances (or after a set time)
   * If a Cluster node fails (for example, is terminated from the AWS console), re-runnign the playbook does not add a new node to the cluster. 
   * ignore_errors has been set to true when creating the gluster volume. This is due to a bug in the module, where it attempts to execute "gluster volume add-brick" against each server in the cluster, when it only needs to execute against a single one. As a result, on the second node, it tries to add a brick that is already added, and runs into an error. The volume was still created, however, so I am treating this as a success condition. Please note that this occurs even though I have flagged run_once in the task, so that it still only runs the command on a single server. 
   * Security has not been configured on GlusterFS; anyone can currently mount the volume if they know where to point. This is because of the previously mentioned bug in the gluster_volume module
