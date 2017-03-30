@@ -1,7 +1,6 @@
 # mkantLogRhythm
 
-Introduction
-=======
+## Introduction
 
 This codebase was created for Michael Kantzer's evaluation with LogRhythm. The task was to automate the creation of a GlusterFS storage cluster with single node failure fault tolerance, with no data loss. Automation should start with the entry of a single command, and should use modern tools appropriate for the task
 
@@ -11,8 +10,7 @@ These requirements have been met with the use of:
   * Ansible for automation
 
 
-Requirements Before Begininng
-=================
+##Requirements Before Begininng
 
 This solution is built to run on Amazon Web Services. As such, an AWS account is required. Due to the relatively small nature of the solution, it should stay within the allotment for Free Teir usage. However, leaving multiple instances running past the end of the demonstration will exceed this limit, and could incur costs. Please be sure to clean up your environment after the evaluation. 
 
@@ -25,8 +23,7 @@ Setup assumes knowledge of the AWS webconsole, proficiency with command line, an
 If you have any questions on a step, please feel free to contact me. 
 
 
-Installation
-============
+## Installation
 
 **PLEASE NOTE: Full deployment must occur within the us-east-1 (N. Virginia) AWS region** due to resource availability. 
 
@@ -59,16 +56,14 @@ VPC setup:
 	2. 
 
 
-Execution
-==================
+## Execution
 
 
 
 
 
 
-Solution Description
-======================
+## Solution Description
 
 
 
@@ -89,12 +84,8 @@ Solution Description
  ```
   [releases.ansible.com](https://releases.ansible.com/ansible)
  
-Execution
-===========
 
-
-Known Issues and Breachs of Best Practices
-=======
+## Known Issues and Breachs of Best Practices
 	
   * My AWS permissions are extreemly loose, especially in the Network Access Control Lists, route tables, and the Security Groups. These should be locked down much further, allowing conenctions to and from only the IP addresses that require them, and restriciting traffic types. However, for this proof of concept, flexability was considered more important than direct security, as no data would actually be housed wihtin the servers.
   * If a Cluster node fails (for example, is terminated from the AWS console), re-runnign the playbook does not add a new node to the cluster. 
@@ -103,5 +94,4 @@ Known Issues and Breachs of Best Practices
   * I am currently deploying the extra drive to the GlusterFS nodes using a public snapshot I have created. This is due to requiring a specificly formated partition. While this is possible in ansible 2.3 using the new "parted" module, my current solution utilizes v 2.2.2.0, the latest available for Ubuntu. 
 
 
-Potential Improvements
-=======
+## Potential Improvements
