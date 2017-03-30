@@ -7,8 +7,8 @@ This codebase was created for Michael Kantzer's evaluation with LogRhythm. The t
 
 These requirements have been met with the use of:
 
-	* Amazon Web Services for infrastructure
-	* Ansible for automation
+  * Amazon Web Services for infrastructure
+  * Ansible for automation
 
 
 Requirements Before Begininng
