@@ -39,9 +39,11 @@ VPC setup:
 	2. 10.0.0.0/20 for IPv4 CIDR block on the first
 	3. 10.0.16.0/20 for IPv4 CIDR block on the second
 	4. Assign them to different availability zones
-	5. Ensure they auto-assign public IPv4 addresses (you may need to change this in subnet actions)
+	5. Ensure they auto-assign public IPv4 addresses 
+		* you may need to change this in subnet actions
 	6. Note down the subnet ids
 3. Network Access Control Lists
+	1. 
 
 Execution
 ==================
@@ -66,6 +68,11 @@ Solution Description
  * of
  * things
  `to mark it as a box`
+ '''
+ lots of things
+ that you can put
+ into a single command box
+ '''
   [releases.ansible.com](https://releases.ansible.com/ansible)
  
 Execution
