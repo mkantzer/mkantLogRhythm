@@ -27,7 +27,8 @@ AWS Configuration
 	* When assigning Availability Zones there are no specific zones that need to be selected, however the zone for Subnet 1 must be different than the zone for Subnet 2.
 	* Do not forget to document subnet-IDs!
 	* VPC: New VPC created above
-	* IPv4 CIDR Block: 10.0.0.0/20
+	* IPv4 CIDR Block (First Subnet): 10.0.0.0/20
+	* IPv4 CIDR Block (Second Subnet): 10.0.16.0/20
 	* Assign Availabily Zone
 	* Enable Auto-assign public IPv4 addresses
 
