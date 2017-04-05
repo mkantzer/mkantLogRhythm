@@ -49,6 +49,7 @@ AWS Configuration
 	* VPC: New VPC created above
 
 * Create New Route Table  
+	* VPC: New VPC created above
 	* Subnet Associations: Both new Subnets created above
 	* Routes:  
 	
